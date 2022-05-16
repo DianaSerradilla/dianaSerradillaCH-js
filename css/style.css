@@ -632,10 +632,176 @@ margin-top: 2rem;
 }
 
 
+/* -------------------------------Ejercicio IF */
+.botones {
+  color: var(--color-dark);
+  background-color: var(--color-background);
+  background-color: var(--color-primary);
+  padding: 0.5em;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+.containerG__cardsIF {
+  display: flex;
+  justify-content: center;
+  margin-top: 5em;
+}
+
+.edadTitle {
+  font-size: 1em;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.edadParrafo {
+  font-size: 1em;
+  margin: 1em;
+  text-align: center;
+}
+
+#resultadoParrafoMayor {
+  font-size: 1em;
+  margin: 5em;
+  text-align: center;
+  display: none;
+  color: #6ca5a3;
+}
+
+#resultadoParrafoMenor {
+  font-size: 1em;
+  margin: 5em;
+  text-align: center;
+  display: none;
+  color: #f34a3a;
+}
+
+/* -------------------------------Ejercicio For */
+.container__consigna {
+  text-align: center;
+}
+#main-insideFor{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.consigna {
+  width: 50%;
+}
+
+@media (max-width: 901px) {
+  .head__estado {
+    width: 13px;
+    height: 13px;
+  }
+
+  .dashboard__container {
+    margin: 0;
+    width: 100%;
+    height: 100vh;
+  }
+
+  .dashborad__columns {
+    flex-direction: column-reverse;
+    height: 100%;
+  }
+
+  .dashboard__right {
+    height: 100%;
+    border-radius: 0;
+    padding: 3rem;
+    overflow: auto;
+  }
+
+  .link__navbar {
+    display: none;
+  }
+
+  .ul__navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .li__navbar {
+    padding: 0;
+    width: auto;
+  }
+
+  .dashboard__right {
+    padding-top: 1rem;
+  }
+
+  .container__perfil {
+    margin-bottom: 0;
+  }
+
+
+  #containerG__cardsE {
+    gap: 1rem;
+  }
+
+  .figure__cards {
+    margin: 0;
+  }
+
+  .container__card {
+    flex-direction: column;
+    width: 15em;
+    height: auto;
+    padding: 0.5rem;
+  }
+  .container__card:hover {
+    box-shadow: none;
+  }
+
+  .cards__title {
+    margin: 0 auto;
+    padding: 1rem 0 1rem 0;
+  }
+
+  .textDescriptionCard,
+.textTitleCard {
+    text-align: center;
+  }
+}
+
+#monto {
+  border-radius: 10px;
+  border: 0.5px solid #ebf2f8;
+  background-color: var(--color-background);
+  height: 2em;
+  margin: 1em;
+  padding-left: 1rem;
+}
+
+#monto::placeholder{
+  padding-left: 1rem;
+}
+
+#cuotas {
+  background-color: var(--color-background);
+  border-radius: 10px;
+  height: 2em;
+  margin: 1em;
+  width: 5em;
+  padding-left: 1rem;
+
+}
+
+#insights-insideDesafioUno{
+  grid-template-columns: repeat(2,1fr);
+}
 /* ----------------------------Media Querys------------------------------ */
 
 @media  (max-width:1400px){
-
+#insights-insideDesafioUno{
+  grid-template-columns: 1fr;
+}
   #insights-insideOne{
     grid-template-columns: 1fr;
     left: 0;
