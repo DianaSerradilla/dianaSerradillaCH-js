@@ -216,6 +216,28 @@ small {
 
 /* --------------Dashboard-------- */
 
+.circular-progress {
+  margin-top: 1.2em;
+  position: relative;
+  height: 90px;
+  width: 90px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+.circular-progress::before {
+  content: "";
+  position: absolute;
+  height: 84%;
+  width: 84%;
+  background-color: #ffff;
+  border-radius: 50%;
+}
+.circular-progress .value-container {
+  position: relative;
+  font-size: 1em;
+}
+
 .profile-photo {
   width: 2.8rem;
   height: 2.8rem;
@@ -388,6 +410,7 @@ b {
 .main .insights > div{
   background: var(--color-white);
   padding: var(--card-padding);
+  padding-left: 1rem;
   border-radius: var(--card-border-radius);
   margin-top: 1rem;
   box-shadow: var(--box-shadow);
