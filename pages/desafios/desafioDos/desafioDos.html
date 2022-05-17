@@ -72,13 +72,34 @@
     <!-- ----------------------aside end---------------------------- -->
     <main class="main main-inside">
       <h1>Desafio Dos </h1>
-      <div class="insights insights-inside" id="insights-insideDesafioUno">
+      <div class="insights" id="insights-desafioDos">
         <div class="complementary">
 
-
+          <h3>Ingrese lista de alumnos</h3>
+          <form>
+            <input type="text" id="nombre" placeholder="Ingresa el nombre" class="inputEjercicios" required>
+            <input type="number" id="edad" placeholder="Ingresa la edad" class="inputEjercicios" required>
+            <div class="container__buttonAlumnos">
+              <button id="buttonAgregar" type="reset" class="buttonSimulador buttonSimuladorAlumnosC">Agregar</button>
+              <button id="buttonEliminarP" type="reset" class="buttonSimulador buttonSimuladorAlumnosC">Eliminar primer
+                alumno</button>
+              <button id="buttonEliminarU" type="reset" class="buttonSimulador  buttonSimuladorAlumnosC">Eliminar último
+                alumno</button>
+            </div>
+          </form>
+          <div>
+            <table class="rwd-table" id="tabla">
+              <thead>
+                <tr class="encabezado">
+                  <th>Nombre</th>
+                  <th>Edad</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
         </div>
         <!-- ----------------------end of complementary---------------------------- -->
-
+        <!-- <button class="botones" id="botonDesafioDos">Activar version 2</button> -->
       </div>
 
 
@@ -121,7 +142,7 @@
   </div>
 
   <script src="../../../../js/index.js"></script>
-  <script src="js/montoCuotas.js"></script>
+  <script src="js/arrays.js"></script>
 
 </body>
 

@@ -657,12 +657,13 @@ margin-top: 2rem;
 
 /* -------------------------------Ejercicio IF */
 .botones {
-  color: var(--color-dark);
+  color: var(--color-white);
   background-color: var(--color-background);
   background-color: var(--color-primary);
   padding: 0.5em;
   box-sizing: border-box;
   border-radius: 10px;
+  cursor: pointer;
 }
 .containerG__cardsIF {
   display: flex;
@@ -819,7 +820,105 @@ margin-top: 2rem;
 #insights-insideDesafioUno{
   grid-template-columns: repeat(2,1fr);
 }
+
+
+/* ----------------------------Desafio dos------------------------------ */
+
+.inputEjercicios {
+  border-radius: 10px;
+  border: 0.5px solid #EBF2F8;
+  background-color: #EBF2F8;
+  padding: 0.5em;
+  height: 2em;
+  margin-bottom: 1em;
+}
+
+.rwd-table {
+  margin: 1em 0;
+  min-width: 80%;
+}
+.rwd-table tr {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+.rwd-table th {
+  display: none;
+}
+.rwd-table td {
+  display: block;
+}
+.rwd-table td:first-child {
+  padding-top: 0.5em;
+}
+.rwd-table td:last-child {
+  padding-bottom: 0.5em;
+}
+.rwd-table td:before {
+  content: attr(data-th) ": ";
+  font-weight: bold;
+  width: 6.5em;
+  display: inline-block;
+}
+
+.rwd-table th, .rwd-table td {
+  text-align: left;
+}
+
+
+.rwd-table {
+  background-color: #EBF2F8;
+  color: #fff;
+  border-radius: 0.4em;
+  overflow: hidden;
+}
+.rwd-table tr {
+  border-color: #46637f;
+}
+.rwd-table th, .rwd-table td {
+  margin: 0.5em 1em;
+}
+
+.rwd-table th, .rwd-table td:before {
+  color: #374552;
+}
+
+.baseDatos {
+  color: #374552;
+}
+
+#insights-desafioDos{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  gap: 2rem;
+}
+
+.buttonSimuladorAlumnosC {
+  margin: 0.5em;
+   padding: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.container__buttonAlumnos {
+  display: flex;
+}
+
+#buttonEliminarU, #buttonEliminarP {
+  background-color: #ffdadd;
+}
+
+#buttonAgregar {
+  background-color: #CEF5E6;
+ 
+}
+
+
+
+
 /* ----------------------------Media Querys------------------------------ */
+
+
 
 @media  (max-width:1400px){
 #insights-insideDesafioUno{
@@ -884,6 +983,27 @@ margin-top: 2rem;
 
 
 /* ----------------------------Media Querys tablets and phones------------------------------ */
+
+@media (min-width: 480px) {
+    .rwd-table td:before {
+    display: none;
+  }
+  .rwd-table th, .rwd-table td {
+    display: table-cell;
+    padding: 0.25em 0.5em;
+  }
+  .rwd-table th:first-child, .rwd-table td:first-child {
+    padding-left: 0;
+  }
+  .rwd-table th:last-child, .rwd-table td:last-child {
+    padding-right: 0;
+  }
+
+   .rwd-table th, .rwd-table td {
+    padding: 1em !important;
+  }
+}
+
 
 @media  (max-width:768px){
 
