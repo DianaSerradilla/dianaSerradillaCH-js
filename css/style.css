@@ -230,7 +230,7 @@ small {
   position: absolute;
   height: 84%;
   width: 84%;
-  background-color: #ffff;
+  background-color: var(--color-white);
   border-radius: 50%;
 }
 .circular-progress .value-container {
