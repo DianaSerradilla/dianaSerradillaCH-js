@@ -2,39 +2,50 @@ let buttonAgregar = document.querySelector("#buttonAgregar");
 let buttonEliminarP = document.querySelector("#buttonEliminarP");
 let buttonEliminarU = document.querySelector("#buttonEliminarU");
 let buttonVTwo = document.querySelector("#botonDesafioDos");
-buttonAgregar.addEventListener("click", capturar);
-buttonEliminarP.addEventListener("click", eliminarP);
-buttonEliminarU.addEventListener("click", eliminarU);
-function capturar() {
-  //console.log("capturado");
-  class Persona {
-    constructor(nombre, edad) {
-      this.nombre = nombre;
-      this.edad = edad;
-    }
-  }
-  var nombreCapturado = document.getElementById("nombre").value;
-  var edadCapturada = document.getElementById("edad").value;
-  nuevoAlumno = new Persona(nombreCapturado, edadCapturada);
-  console.log(nuevoAlumno)
-  if ((nombreCapturado == "") || (edadCapturada == "")) {
-    alert("No ha ingresado datos, reitente.")
-  } else {
-    if (isNaN(nombreCapturado)) {
-      agregar();
+let baseDatos = [];
+let nuevoAlumno;
+let tabla = document.getElementById("tabla");
 
-    } else {
-      alert("No debe ingresar números en el nombre, reitente.")
 
-    }
+class Persona {
+  constructor(nombre, edad) {
+    this.nombre = nombre;
+    this.edad = edad;
   }
 }
 
-let baseDatos = [];
+
+
+buttonAgregar.addEventListener("click", capturar);
+buttonEliminarP.addEventListener("click", eliminarP);
+buttonEliminarU.addEventListener("click", eliminarU);
+
+function capturar() {
+  //console.log("capturado");
+  const nombreCapturado = document.getElementById("nombre").value;
+  const edadCapturada = document.getElementById("edad").value;
+  nuevoAlumno = new Persona(nombreCapturado, edadCapturada);
+  console.log(nuevoAlumno)
+  // if ((nombreCapturado == "") || (edadCapturada == "")) {
+  //   alert("No ha ingresado datos, reitente.")
+  // } else {
+  if (isNaN(nombreCapturado)) {
+    agregar();
+    return nuevoAlumno;
+  } else {
+    alert("No debe ingresar números en el nombre, reitente.")
+    return;
+  }
+}
+// }
+
+
+
 function agregar() {
+  // const nuevoAlumno = capturar();
   baseDatos.push(nuevoAlumno);
   console.log(baseDatos);
-  tabla = document.getElementById("tabla");
+  // tabla = document.getElementById("tabla");
   tabla.innerHTML += '<tbody><td class="baseDatos">' + nuevoAlumno.nombre + '</td><td class="baseDatos">' + nuevoAlumno.edad + '</td></tbody>';
 
 };
