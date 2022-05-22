@@ -14,6 +14,7 @@
 //Revisar stock
 //CRUD stock
 //Cantidad de ventas (estadistica)
+//Loguearse
 
 
 //Pantalla Login
@@ -23,6 +24,11 @@
 //Ver tus productos en venta con sus datos
 //Modificar datos de estos productos
 //Cargar nuevos productos
+
+
+//Pantalla perfil
+//Ver datos
+//Cambiar datos
 
 
 //Pantallas estadisticas
