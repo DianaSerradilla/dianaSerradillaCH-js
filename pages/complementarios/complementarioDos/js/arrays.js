@@ -16,7 +16,7 @@ class Persona {
 
 
 
-buttonAgregar.addEventListener("click", capturar);
+buttonAgregar.addEventListener("click", agregar);
 buttonEliminarP.addEventListener("click", eliminarP);
 buttonEliminarU.addEventListener("click", eliminarU);
 
@@ -30,10 +30,10 @@ function capturar() {
   //   alert("No ha ingresado datos, reitente.")
   // } else {
   if (isNaN(nombreCapturado)) {
-    agregar();
+    // agregar();
     return nuevoAlumno;
   } else {
-    alert("No debe ingresar números en el nombre, reitente.")
+    alert("No debe ingresar números en el nombre ni dejarlo vacio, reitente.")
     return;
   }
 }
@@ -43,8 +43,10 @@ function capturar() {
 
 function agregar() {
   // const nuevoAlumno = capturar();
+  const nuevoAlumno = capturar();
   baseDatos.push(nuevoAlumno);
   console.log(baseDatos);
+
   // tabla = document.getElementById("tabla");
   tabla.innerHTML += '<tbody><td class="baseDatos">' + nuevoAlumno.nombre + '</td><td class="baseDatos">' + nuevoAlumno.edad + '</td></tbody>';
 
