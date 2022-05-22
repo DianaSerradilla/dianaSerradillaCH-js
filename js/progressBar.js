@@ -20,7 +20,7 @@ function progressbar(idOne, idTwo, cantidad, value) {
 }
 
 
-progressbar("#circular-progressA", "#value-containerA", 50, 0);
+progressbar("#circular-progressA", "#value-containerA", 75, 0);
 progressbar("#circular-progressB", "#value-containerB", 25, 0);
-progressbar("#circular-progressC", "#value-containerC", 0, -1);
+progressbar("#circular-progressC", "#value-containerC", 50, 0);
 progressbar("#circular-progressD", "#value-containerD", 0, -1);

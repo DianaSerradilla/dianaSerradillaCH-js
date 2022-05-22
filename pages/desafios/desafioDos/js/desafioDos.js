@@ -46,6 +46,13 @@
 
 
 
+// Orden del código
+// Clases
+// Variables
+// Funciones
+// Ejecución del código
+
+
 
 class Sticker {
   constructor(id, nombre, categoria, img, precio, tags, stock) {
@@ -57,9 +64,17 @@ class Sticker {
     this.tags = tags;
     this.stock = stock;
   }
+
+  disminuirStock(cantidad) {
+    this.stock = stock - cantidad;
+  }
+
+  aumentarStock(cantidad) {
+    this.stock = stock + cantidad;
+  }
+
+
 }
-
-
 
 
 
@@ -104,11 +119,9 @@ const impresiones = [
 
 ];
 
-
 let carrito = [];
 let carritoReal = document.getElementById("carrito");
-let buttonAdd = document.getElementById("cart");
-
+let buttonAdd = document.getElementById("prueba");
 
 
 function imprimirStickers(impresiones) {
@@ -140,6 +153,7 @@ function imprimirStickers(impresiones) {
                 </div>
                 <!--Modals icons cart-->
                 <ul class="shoppintcart">
+                  
                   <li id="cart" title="Comprar"><i class="fa fa-shopping-cart"></i></li>
                   <li id="love" title="Guardar"><i class="fa fa-heart"></i></li>
                 </ul>
@@ -155,3 +169,6 @@ function imprimirStickers(impresiones) {
 
 imprimirStickers(impresiones);
 
+buttonAdd.addEventListener('click', function () {
+  console.log("Hola");
+})
