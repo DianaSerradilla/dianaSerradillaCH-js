@@ -66,11 +66,11 @@ class Sticker {
   }
 
   disminuirStock(cantidad) {
-    this.stock = stock - cantidad;
+    this.stock -= cantidad;
   }
 
   aumentarStock(cantidad) {
-    this.stock = stock + cantidad;
+    this.stock +=cantidad;
   }
 
 
@@ -121,20 +121,36 @@ const impresiones = [
 
 let carrito = [];
 let carritoReal = document.getElementById("carrito");
-let buttonAdd = document.getElementById("prueba");
+let cantidadTCarrito = document.getElementById("carrito-totalCantidad");
+let cantidadContador=0;
+
+
+
+
+function comprar(){  
+  // console.log("funca")
+  cantidadContador++;
+  cantidadTCarrito.innerHTML= cantidadContador;
+ 
+  Swal.fire({
+    position: 'center',
+    icon: 'success',
+    title: 'Has añadido un elemento al carrito',
+    showConfirmButton: false,
+    timer: 1500
+  })
+
+};
+
 
 
 function imprimirStickers(impresiones) {
-
   let contenedor = document.getElementById("contenedor");
-
-
   for (const sticker of impresiones) {
     let card = document.createElement("div");
-
     card.innerHTML =
-      `<div class="containerProduct">
-            <div class="content">
+      `<div class="containerProduct" >
+            <div class="content" id="${sticker.id}">
               <div id="product" class="card">
                 <span class="numberproduct"># ${sticker.id}</span>
                 <div class="cover">
@@ -154,7 +170,7 @@ function imprimirStickers(impresiones) {
                 <!--Modals icons cart-->
                 <ul class="shoppintcart">
                   
-                  <li id="cart" title="Comprar"><i class="fa fa-shopping-cart"></i></li>
+                  <li id="cart" class="cart" title="Comprar"><i class="fa fa-shopping-cart"></i></li>
                   <li id="love" title="Guardar"><i class="fa fa-heart"></i></li>
                 </ul>
               </div>
@@ -165,10 +181,15 @@ function imprimirStickers(impresiones) {
   }
 }
 
-
-
 imprimirStickers(impresiones);
 
-buttonAdd.addEventListener('click', function () {
-  console.log("Hola");
-})
+
+
+
+let buttonAdd = document.getElementsByClassName("cart");
+
+for (const index in impresiones) {
+  buttonAdd[index].addEventListener("click", comprar);
+}
+
+
