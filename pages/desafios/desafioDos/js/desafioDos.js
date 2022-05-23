@@ -55,23 +55,18 @@
 
 
 class Sticker {
-  constructor(id, nombre, categoria, img, precio, tags, stock) {
-    this.id = id;
-    this.nombre = nombre;
-    this.categoria = categoria;
-    this.img = img;
-    this.precio = precio;
-    this.tags = tags;
-    this.stock = stock;
+  constructor(sticker) {
+    this.id = sticker.id;
+    this.nombre = sticker.nombre;
+    this.categoria = sticker.categoria;
+    this.img = sticker.img;
+    this.precio = sticker.precio;
+    this.tags = sticker.tags;
+    this.stock = sticker.stock;
+    this.precioTotal = sticker.precioTotal;
   }
 
-  disminuirStock(cantidad) {
-    this.stock -= cantidad;
-  }
-
-  aumentarStock(cantidad) {
-    this.stock +=cantidad;
-  }
+  
 
 
 }
@@ -120,18 +115,20 @@ const impresiones = [
 ];
 
 let carrito = [];
-let carritoReal = document.getElementById("carrito");
 let cantidadTCarrito = document.getElementById("carrito-totalCantidad");
+let precioTCarrito = document.getElementById("carrito-totalPrecio");
 let cantidadContador=0;
+let precioTotal=0;
 
 
 
 
-function comprar(){  
+function comprar(stickerID){  
   // console.log("funca")
   cantidadContador++;
   cantidadTCarrito.innerHTML= cantidadContador;
- 
+  console.log(stickerID);
+
   Swal.fire({
     position: 'center',
     icon: 'success',
@@ -140,6 +137,15 @@ function comprar(){
     timer: 1500
   })
 
+
+  impresiones.forEach(sticker => {
+    if(sticker.id == stickerID){ 
+        precioTotal+= sticker.precio;
+    }
+    
+  });
+
+  precioTCarrito.innerHTML = precioTotal;
 };
 
 
@@ -150,7 +156,7 @@ function imprimirStickers(impresiones) {
     let card = document.createElement("div");
     card.innerHTML =
       `<div class="containerProduct" >
-            <div class="content" id="${sticker.id}">
+            <div class="content">
               <div id="product" class="card">
                 <span class="numberproduct"># ${sticker.id}</span>
                 <div class="cover">
@@ -170,7 +176,7 @@ function imprimirStickers(impresiones) {
                 <!--Modals icons cart-->
                 <ul class="shoppintcart">
                   
-                  <li id="cart" class="cart" title="Comprar"><i class="fa fa-shopping-cart"></i></li>
+                  <li id="agregar${sticker.id}" class="cart" title="Comprar"><i class="fa fa-shopping-cart"></i></li>
                   <li id="love" title="Guardar"><i class="fa fa-heart"></i></li>
                 </ul>
               </div>
@@ -178,18 +184,25 @@ function imprimirStickers(impresiones) {
           </div>`;
 
     contenedor.appendChild(card);
+    let buttonAdd = document.getElementById(`agregar${sticker.id}`)
+    buttonAdd.addEventListener("click", () => comprar(sticker.id));
   }
+
+
 }
+
+
+
+
 
 imprimirStickers(impresiones);
 
 
 
 
-let buttonAdd = document.getElementsByClassName("cart");
 
-for (const index in impresiones) {
-  buttonAdd[index].addEventListener("click", comprar);
-}
+// for (const index in impresiones) {
+//   buttonAdd[index].addEventListener("click", comprar);
+// }
 
 
