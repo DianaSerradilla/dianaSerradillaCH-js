@@ -674,6 +674,18 @@ b {
   color: #f34a3a;
 }
 
+.previsualizacion-final{
+  display: flex;
+  gap: 1rem;
+}
+
+.boton-ver{
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border-radius: var(--border-radius-1);
+  padding: .5rem;
+}
+
 /* -------------------------------Ejercicio For */
 .container__consigna {
   text-align: center;
