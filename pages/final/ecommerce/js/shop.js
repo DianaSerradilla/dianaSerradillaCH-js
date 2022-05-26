@@ -235,11 +235,12 @@ let precioTCarrito = document.getElementById("carrito-totalPrecio");
 let cantidadContador=0;
 let precioTotal=0;
 let totalStickers = document.getElementById("total-stickers");
+let totalStickersS = document.getElementById("total-stickersS");
 const impresionesXCategoria = [];
 
 
 totalStickers.innerHTML = impresiones.length;
-
+totalStickersS.innerHTML = impresiones.length;
 
 
 function comprar(stickerID){  
