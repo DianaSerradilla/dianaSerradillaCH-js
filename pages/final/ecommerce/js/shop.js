@@ -363,27 +363,30 @@ function imprimirIlustrador(ilustradores,impresiones){
 
 
 
-// function filtrarCategoria(categoria,impresiones){
+function filtrarCategoria(categoria,impresiones){
   
 
-//   for (const sticker of impresiones) {
-//     if(categoria == sticker.categoria){
-//         impresionesXCategoria.push(sticker);
+
+  //FILTER
+  for (const sticker of impresiones) {
+    if(categoria == sticker.categoria){
+        impresionesXCategoria.push(sticker);
        
-//     }
-//   }
+    }
+  }
 
-//   // console.table(impresionesXCategoria);
+  // console.table(impresionesXCategoria);
   
 
-//   for (let i = 0; i < impresiones.length; i++) {
-//     let contenedorStickers = document.getElementById("contenedor");
-//   let sticker = document.getElementById("sticker");
-//     contenedorStickers.removeChild(sticker);
-//   }
+  //CONTENEDOR.INNERHTML = "";
+  for (let i = 0; i < impresiones.length; i++) {
+    let contenedorStickers = document.getElementById("contenedor");
+  let sticker = document.getElementById("sticker");
+    contenedorStickers.removeChild(sticker);
+  }
 
-//   imprimirStickers(impresionesXCategoria)
-// }
+  imprimirStickers(impresionesXCategoria)
+}
 
 
 imprimirStickers(impresiones);
