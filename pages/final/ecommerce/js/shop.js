@@ -236,11 +236,14 @@ let cantidadContador=0;
 let precioTotal=0;
 let totalStickers = document.getElementById("total-stickers");
 let totalStickersS = document.getElementById("total-stickersS");
-const impresionesXCategoria = [];
+// let mostrarTodos = document.getElementById("li-total-sticker");
+let mostrarTodos = document.getElementsByClassName("mostrar-todos");
+// const impresionesXCategoria = [];
+let opcionUno = document.querySelectorAll('[data-value="menorOrden"]');
+console.log(opcionUno);
 
-
-totalStickers.innerHTML = impresiones.length;
 totalStickersS.innerHTML = impresiones.length;
+
 
 
 function comprar(stickerID){  
@@ -257,21 +260,25 @@ function comprar(stickerID){
     timer: 1500
   })
 
-
+  
   impresiones.forEach(sticker => {
     if(sticker.id == stickerID){ 
-        precioTotal+= sticker.precio;
+      precioTotal+= sticker.precio;
     }
     
   });
-
+  
   precioTCarrito.innerHTML = precioTotal;
+
 };
 
 
 
 function imprimirStickers(impresiones) {
+  
   let contenedor = document.getElementById("contenedor");
+  totalStickers.innerHTML = impresiones.length;
+  contenedor.innerHTML = "";
   for (const sticker of impresiones) {
     let card = document.createElement("div");
     card.className+='col-lg-4 col-md-6 col-sm-6',
@@ -306,21 +313,15 @@ function imprimirStickers(impresiones) {
 
 
 function imprimirCategorias(categorias,impresiones){
-
   let contenedorCategorias = document.getElementById("contenedor-categorias");
 
   for (const i in categorias) {
     let categoria = document.createElement("li");
-    let contadorCantidad=0;
-    
-
-    
+    let contadorCantidad=0;    
     for (const sticker of impresiones) {
       if(categorias[i] == sticker.categoria){
         contadorCantidad++;
-      }
-
-      
+      }      
     }
 
     categoria.innerHTML = 
@@ -342,62 +343,107 @@ function imprimirIlustrador(ilustradores,impresiones){
 
   for (const i in ilustradores) {
     let ilustrador = document.createElement("li");
-    let contadorCantidad=0;
-    
-
-    
+    let contadorCantidad=0;    
     for (const sticker of impresiones) {
       if(ilustradores[i] == sticker.ilustrador){
         contadorCantidad++;
       }
     }
-
     ilustrador.innerHTML = 
-    `<a href="#" id="${ilustradores[i]}"> ${ilustradores[i]} (${contadorCantidad})</a>`
-
+    `<a href="#" id="ilustrador${ilustradores[i]}"> ${ilustradores[i]} (${contadorCantidad})</a>`
     contenedorIlustradores.appendChild(ilustrador)
     contadorCantidad=0;
+    let buttonIlustrador = document.getElementById(`ilustrador${ilustradores[i]}`);
+    buttonIlustrador.addEventListener("click", () => filtrarIlustrador(ilustradores[i], impresiones));
   }
 
+
 };
+
+function imprimirPrecios(){
+  let contenedorPrecios = document.getElementById("contenedor-precios");
+  let contador=0;
+  let contadorUno= 50;
+  for (let i = 0; i <= 4; i++) {
+    let precio = document.createElement("li");     
+        if(i!=4){
+          precio.innerHTML =
+        `<li><a href="#" id="${i}" >$${contador}.00 - $${contadorUno}.00</a></li>`
+        }else{
+            precio.innerHTML =
+          `<a href="#" id="4">$250.00+</a>`      
+        }
+    contador+=50;
+    contadorUno+=50;
+    contenedorPrecios.appendChild(precio);
+    let buttonPrecio = document.getElementById(`${i}`);
+    buttonPrecio.addEventListener("click", () => filtrarPrecio(i,impresiones));
+  
+  }
+
+}
+
+
+
 
 
 
 function filtrarCategoria(categoria,impresiones){
-  
-
-
-  //FILTER
-  for (const sticker of impresiones) {
-    if(categoria == sticker.categoria){
-        impresionesXCategoria.push(sticker);
-       
-    }
-  }
-
-  // console.table(impresionesXCategoria);
-  
-
-  //CONTENEDOR.INNERHTML = "";
-  for (let i = 0; i < impresiones.length; i++) {
-    let contenedorStickers = document.getElementById("contenedor");
-  let sticker = document.getElementById("sticker");
-    contenedorStickers.removeChild(sticker);
-  }
-
+  const impresionesXCategoria = impresiones.filter(sticker => sticker.categoria == categoria);
+  contenedor.innerHTML = "";
+  totalStickers.innerHTML = impresionesXCategoria.length;
   imprimirStickers(impresionesXCategoria)
+  impresionesXCategoria.length = 0;
+}
+
+function filtrarIlustrador(ilustrador,impresiones){
+  const impresionesXIlustrador = impresiones.filter(sticker => sticker.ilustrador == ilustrador);
+  contenedor.innerHTML = "";
+  totalStickers.innerHTML = impresionesXIlustrador.length;
+  imprimirStickers(impresionesXIlustrador)
+  impresionesXIlustrador.length = 0;
+}
+
+function filtrarPrecio(i, impresiones){
+  let impresionesXPrecio= [];
+  // console.log(i);
+  switch (i) {
+    case 0:
+      impresionesXPrecio = impresiones.filter(sticker => sticker.precio>0 && sticker.precio<=50);      
+      break;
+    case 1:
+      impresionesXPrecio = impresiones.filter(sticker => sticker.precio>50 && sticker.precio<=100);      
+      break;
+    case 2:
+      impresionesXPrecio = impresiones.filter(sticker => sticker.precio>100 && sticker.precio<=150);      
+     break;
+    case 3:
+      impresionesXPrecio = impresiones.filter(sticker => sticker.precio>150 && sticker.precio<=250);  
+     break;
+     case 4:
+      impresionesXPrecio = impresiones.filter(sticker => sticker.precio>250);      
+     break;
+    default:
+      break;
+  }
+  contenedor.innerHTML = "";
+  totalStickers.innerHTML = impresionesXPrecio.length;
+  imprimirStickers(impresionesXPrecio);
+
+ 
+}
+
+
+
+
+for (let i = 0; i < mostrarTodos.length; i++) {  
+  mostrarTodos[i].addEventListener("click", () => imprimirStickers(impresiones));
 }
 
 
 imprimirStickers(impresiones);
 imprimirCategorias(categorias,impresiones);
 imprimirIlustrador(ilustradores,impresiones);
-
-
-
-
-// for (const index in impresiones) {
-//   buttonAdd[index].addEventListener("click", comprar);
-// }
+imprimirPrecios();
 
 
