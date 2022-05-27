@@ -232,24 +232,25 @@ const impresiones = [
 let carrito = [];
 let cantidadTCarrito = document.getElementById("carrito-totalCantidad");
 let precioTCarrito = document.getElementById("carrito-totalPrecio");
-let cantidadContador=0;
-let precioTotal=0;
 let totalStickers = document.getElementById("total-stickers");
 let totalStickersS = document.getElementById("total-stickersS");
-// let mostrarTodos = document.getElementById("li-total-sticker");
 let mostrarTodos = document.getElementsByClassName("mostrar-todos");
-// const impresionesXCategoria = [];
-let opcionUno = document.querySelectorAll('[data-value="menorOrden"]');
-console.log(opcionUno);
+// let cantidadContador=0;
+let cantidadContador= JSON.parse(sessionStorage.getItem("cantidadTotal")) || 0;
+// let precioTotal = 0;
+let precioTotal = JSON.parse(sessionStorage.getItem("precioTotal")) || 0;
 
-totalStickersS.innerHTML = impresiones.length;
+
+sessionStorage.setItem("cantidadTotal", cantidadContador);
+sessionStorage.setItem("precioTotal", precioTotal);
+precioTCarrito.innerHTML = precioTotal;
+cantidadTCarrito.innerHTML= cantidadContador;
 
 
 
 function comprar(stickerID){  
-  // console.log("funca")
+
   cantidadContador++;
-  cantidadTCarrito.innerHTML= cantidadContador;
   console.log(stickerID);
 
   Swal.fire({
@@ -264,12 +265,20 @@ function comprar(stickerID){
   impresiones.forEach(sticker => {
     if(sticker.id == stickerID){ 
       precioTotal+= sticker.precio;
+      
     }
+
     
   });
+
+  sessionStorage.setItem("cantidadTotal", cantidadContador);
+  sessionStorage.setItem("precioTotal", precioTotal);  
+  precioTotal = JSON.parse(sessionStorage.getItem("precioTotal")) ;
+  cantidadContador= JSON.parse(sessionStorage.getItem("cantidadTotal"));
   
   precioTCarrito.innerHTML = precioTotal;
-
+  cantidadTCarrito.innerHTML= cantidadContador;
+ 
 };
 
 
@@ -404,6 +413,8 @@ function filtrarIlustrador(ilustrador,impresiones){
   impresionesXIlustrador.length = 0;
 }
 
+
+
 function filtrarPrecio(i, impresiones){
   let impresionesXPrecio= [];
   // console.log(i);
@@ -446,4 +457,5 @@ imprimirCategorias(categorias,impresiones);
 imprimirIlustrador(ilustradores,impresiones);
 imprimirPrecios();
 
+totalStickersS.innerHTML = impresiones.length;
 
