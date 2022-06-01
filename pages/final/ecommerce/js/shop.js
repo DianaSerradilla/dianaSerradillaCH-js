@@ -10,7 +10,24 @@ class Sticker {
     this.precio = sticker.precio;
     this.tags = sticker.tags;
     this.stock = sticker.stock;
-    this.precioTotal = sticker.precioTotal;
+    this.cantidadTotalC = 1;
+    this.precioTotalC = sticker.precio;
+  }
+
+
+  agregarUnidadCarrito(){ 
+    this.cantidadTotalC++;
+    
+  }
+
+
+
+   quitarrUnidadCarrito(){ 
+    this.cantidadTotalC--;
+  }
+
+  actualizarPrecioTotalCarrito(){
+    this.precioTotalC = this.precio * this.cantidadTotalC;
   }
 }
 
@@ -22,7 +39,7 @@ const ilustradores = ["Anónimo", "Willian Santiago", "Naranjalidad", "Nur Ventu
 
 const impresiones = [
   {
-    id: 01,
+    id: 0,
     nombre: "Tea Rex",
     categoria: categorias[11],
     img: "img/stickers/tearex.jpg",
@@ -30,19 +47,20 @@ const impresiones = [
     tags: "meme",
     ilustrador: ilustradores[0],
     stock: 2,
+
   },
   {
-    id: 02,
+    id: 1,
     nombre: "Harry Style",
     categoria: categorias[1],
     img: "img/stickers/harry.jpg",
     precio: 120,
     tags: "música",
     ilustrador: ilustradores[0],
-    stock: 3,
+    stock: 2,
   },
   {
-    id: 03,
+    id: 2,
     nombre: "Dark",
     categoria:  categorias[2],
     img: "img/stickers/dark.jpg",
@@ -52,7 +70,7 @@ const impresiones = [
     stock: 7,
   },
   {
-    id: 04,
+    id: 3,
     nombre: "Mc",
     categoria:  categorias[12],
     img: "img/stickers/mc.jpg",
@@ -63,7 +81,7 @@ const impresiones = [
 
   },
    {
-    id: 05,
+    id: 4,
     nombre: "Thor and Loki",
     categoria:  categorias[13],
     img: "img/stickers/thorLoki.jpg",
@@ -74,7 +92,7 @@ const impresiones = [
 
   },
    {
-    id: 06,
+    id: 5,
     nombre: "Creación de Adan",
     categoria:  categorias[5],
     img: "img/stickers/adanObra.jpg",
@@ -86,7 +104,7 @@ const impresiones = [
   },
 
    {
-    id: 07,
+    id: 6,
     nombre: "Bellota dormida",
     categoria:  categorias[0],
     img: "img/stickers/bellotaDormida.jpg",
@@ -96,7 +114,7 @@ const impresiones = [
     stock: 12,
 
   }, {
-    id: 08,
+    id: 7,
     nombre: "Billie Elish Illustracion",
     categoria:  categorias[1],
     img: "img/stickers/billieE.jpg",
@@ -106,7 +124,7 @@ const impresiones = [
     stock: 12,
 
   }, {
-    id: 09,
+    id: 8,
     nombre: "Billie Elish",
     categoria:  categorias[1],
     img: "img/stickers/billieE-uno.jpg",
@@ -116,7 +134,7 @@ const impresiones = [
     stock: 12,
 
   }, {
-    id: 10,
+    id: 9,
     nombre: "Leonardo Di Caprio meme",
     categoria:  categorias[11],
     img: "img/stickers/diCaprioMeme.jpg",
@@ -126,7 +144,7 @@ const impresiones = [
     stock: 12,
 
   }, {
-    id: 11,
+    id: 10,
     nombre: "Estatua Meme",
     categoria:  categorias[11],
     img: "img/stickers/estatua.jpg",
@@ -136,7 +154,7 @@ const impresiones = [
     stock: 12,
 
   }, {
-    id: 12,
+    id: 11,
     nombre: "Harry Potter Ilustracion",
     categoria:  categorias[13],
     img: "img/stickers/harryPotter.jpg",
@@ -146,7 +164,7 @@ const impresiones = [
     stock: 12,
 
   }, {
-    id: 13,
+    id: 12,
     nombre: "Maradonna Ilustracion",
     categoria:  categorias[3],
     img: "img/stickers/maradona.jpg",
@@ -156,7 +174,7 @@ const impresiones = [
     stock: 12,
 
   }, {
-    id: 14,
+    id: 13,
     nombre: "Messi Ilustracion",
     categoria:  categorias[3],
     img: "img/stickers/messiCopa.jpg",
@@ -166,7 +184,7 @@ const impresiones = [
     stock: 12,
 
   }, {
-    id: 15,
+    id: 14,
     nombre: "Niño Meme",
     categoria:  categorias[11],
     img: "img/stickers/neneMeme.jpg",
@@ -176,7 +194,7 @@ const impresiones = [
     stock: 12,
 
   }, {
-    id: 16,
+    id: 15,
     nombre: "Perrito TDFW",
     categoria:  categorias[11],
     img: "img/stickers/perritoTFW.jpg",
@@ -186,7 +204,7 @@ const impresiones = [
     stock: 12,
 
   }, {
-    id: 17,
+    id: 16,
     nombre: "Stich lentes",
     categoria:  categorias[0],
     img: "img/stickers/stichLentes.jpg",
@@ -196,7 +214,7 @@ const impresiones = [
     stock: 12,
 
   }, {
-    id: 18,
+    id: 17,
     nombre: "El Viaje de Chihiro",
     categoria:  categorias[4],
     img: "img/stickers/viajeChihiro.jpg",
@@ -206,7 +224,7 @@ const impresiones = [
     stock: 12,
 
   }, {
-    id: 19,
+    id: 18,
     nombre: "Arctic Monkets",
     categoria:  categorias[1],
     img: "img/stickers/arctic.jpg",
@@ -216,7 +234,7 @@ const impresiones = [
     stock: 12,
 
   }, {
-    id: 20,
+    id: 19,
     nombre: "Converse",
     categoria:  categorias[5],
     img: "img/stickers/converse.jpg",
@@ -250,35 +268,63 @@ cantidadTCarrito.innerHTML= cantidadContador;
 
 function comprar(stickerID){  
 
+
+
+
   cantidadContador++;
-  console.log(stickerID);
-
-  Swal.fire({
-    position: 'center',
-    icon: 'success',
-    title: 'Has añadido un elemento al carrito',
-    showConfirmButton: false,
-    timer: 1500
-  })
-
-  
+ 
   impresiones.forEach(sticker => {
     if(sticker.id == stickerID){ 
-      precioTotal+= sticker.precio;
-      
-    }
+      console.log(sticker.stock)
+      if(sticker.precio < 0){
+        alert("No hay mas stock")
+        
+      }else{
+        precioTotal+= sticker.precio;
+          let stickerEnCarrito = carrito.find((elemento) => elemento.id = stickerID);
+          if(stickerEnCarrito){
+          let index = carrito.findIndex((elemento) => elemento.id === stickerEnCarrito.id)
+          carrito[index].agregarUnidadCarrito();
+          carrito[index].actualizarPrecioTotalCarrito();
+          Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Has añadido otro elemento al carrito',
+          showConfirmButton: false,
+          timer: 1500
+        })
 
-    
+          console.table(carrito);
+        }else { 
+          carrito.push(new Sticker(impresiones[stickerID]));       
+     
+         
+          Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Has añadido un elemento al carrito',
+          showConfirmButton: false,
+          timer: 1500
+            })
+
+          console.table(carrito);
+        }
+      }
+    }    
   });
+
+ 
+
+
+
+ 
 
   sessionStorage.setItem("cantidadTotal", cantidadContador);
   sessionStorage.setItem("precioTotal", precioTotal);  
   precioTotal = JSON.parse(sessionStorage.getItem("precioTotal")) ;
-  cantidadContador= JSON.parse(sessionStorage.getItem("cantidadTotal"));
-  
+  cantidadContador= JSON.parse(sessionStorage.getItem("cantidadTotal"));  
   precioTCarrito.innerHTML = precioTotal;
   cantidadTCarrito.innerHTML= cantidadContador;
- 
 };
 
 
