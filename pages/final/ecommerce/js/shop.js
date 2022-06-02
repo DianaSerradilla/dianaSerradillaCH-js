@@ -421,13 +421,17 @@ function imprimirPrecios(){
   let contadorUno= 50;
   for (let i = 0; i <= 4; i++) {
     let precio = document.createElement("li");     
-        if(i!=4){
-          precio.innerHTML =
-        `<li><a href="#" id="${i}" >$${contador}.00 - $${contadorUno}.00</a></li>`
-        }else{
-            precio.innerHTML =
-          `<a href="#" id="4">$250.00+</a>`      
-        }
+        // if(i!=4){
+        //   precio.innerHTML =
+        // `<li><a href="#" id="${i}" >$${contador}.00 - $${contadorUno}.00</a></li>`
+        // }else{
+        //     precio.innerHTML =
+        //   `<a href="#" id="4">$250.00+</a>`      
+        // }
+        //Operadores avanzados
+        i!=4 ?   precio.innerHTML =
+        `<li><a href="#" id="${i}" >$${contador}.00 - $${contadorUno}.00</a></li>` :  precio.innerHTML =
+          `<a href="#" id="4">$250.00+</a>`   
     contador+=50;
     contadorUno+=50;
     contenedorPrecios.appendChild(precio);
