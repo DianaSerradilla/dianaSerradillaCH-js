@@ -258,7 +258,6 @@ let cantidadContador= JSON.parse(sessionStorage.getItem("cantidadTotal")) || 0;
 // let precioTotal = 0;
 let precioTotal = JSON.parse(sessionStorage.getItem("precioTotal")) || 0;
 
-
 sessionStorage.setItem("cantidadTotal", cantidadContador);
 sessionStorage.setItem("precioTotal", precioTotal);
 precioTCarrito.innerHTML = precioTotal;
@@ -365,6 +364,7 @@ function imprimirStickers(impresiones) {
 
 
 }
+
 
 
 function imprimirCategorias(categorias,impresiones){
@@ -493,6 +493,7 @@ function filtrarPrecio(i, impresiones){
 
  
 }
+
 
 
 
