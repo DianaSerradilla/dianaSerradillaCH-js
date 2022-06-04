@@ -3,6 +3,8 @@ const categorias = ["Caricaturas", "Música", "Series", "Deporte", "Anime", "Aes
 
 const ilustradores = ["Anónimo", "Willian Santiago", "Naranjalidad", "Nur Ventura", "Daniella Martí"];
 
+const atributos = ["nuevo", "oferta", "popular"  ]
+
 const impresiones = [
   {
     id: 0,
@@ -13,7 +15,7 @@ const impresiones = [
     tags: "meme",
     ilustrador: ilustradores[0],
     stock: 2,
-
+    atributo : atributos[0],
   },
   {
     id: 1,
@@ -24,6 +26,7 @@ const impresiones = [
     tags: "música",
     ilustrador: ilustradores[0],
     stock: 2,
+    atributo : atributos[1],
   },
   {
     id: 2,
@@ -34,6 +37,7 @@ const impresiones = [
     tags: "Series",
     ilustrador: ilustradores[0],
     stock: 7,
+    atributo : atributos[2],
   },
   {
     id: 3,
@@ -44,7 +48,7 @@ const impresiones = [
     tags: "Comida",
     ilustrador: ilustradores[0],
     stock: 10,
-
+    atributo : atributos[2],
   },
    {
     id: 4,
@@ -55,7 +59,7 @@ const impresiones = [
     tags: "Serie",
     ilustrador: ilustradores[0],
     stock: 10,
-
+    atributo : atributos[1],
   },
    {
     id: 5,
@@ -66,7 +70,7 @@ const impresiones = [
     tags: "Obra",
     ilustrador: ilustradores[0],
     stock: 12,
-
+    atributo : atributos[0],
   },
 
    {
@@ -78,7 +82,7 @@ const impresiones = [
     tags: "Caricatura",
     ilustrador: ilustradores[0],
     stock: 12,
-
+    atributo : atributos[0],
   }, {
     id: 7,
     nombre: "Billie Elish Illustracion",
@@ -88,7 +92,7 @@ const impresiones = [
     tags: "Música",
     ilustrador: ilustradores[0],
     stock: 12,
-
+    atributo : atributos[2],
   }, {
     id: 8,
     nombre: "Billie Elish",
@@ -98,7 +102,7 @@ const impresiones = [
     tags: "Música",
     ilustrador: ilustradores[0],
     stock: 12,
-
+    atributo : atributos[1],
   }, {
     id: 9,
     nombre: "Leonardo Di Caprio meme",
@@ -108,7 +112,7 @@ const impresiones = [
     tags: "Meme",
     ilustrador: ilustradores[0],
     stock: 12,
-
+    atributo : atributos[2],
   }, {
     id: 10,
     nombre: "Estatua Meme",
@@ -118,7 +122,7 @@ const impresiones = [
     tags: "Obra",
     ilustrador: ilustradores[0],
     stock: 12,
-
+    atributo : atributos[1],
   }, {
     id: 11,
     nombre: "Harry Potter Ilustracion",
@@ -128,7 +132,7 @@ const impresiones = [
     tags: "Fantasia",
     ilustrador: ilustradores[0],
     stock: 12,
-
+    atributo : atributos[1],
   }, {
     id: 12,
     nombre: "Maradonna Ilustracion",
@@ -138,7 +142,7 @@ const impresiones = [
     tags: "Futbol",
     ilustrador: ilustradores[0],
     stock: 12,
-
+    atributo : atributos[2],
   }, {
     id: 13,
     nombre: "Messi Ilustracion",
@@ -148,7 +152,7 @@ const impresiones = [
     tags: "Futbol",
     ilustrador: ilustradores[0],
     stock: 12,
-
+    atributo : atributos[0],
   }, {
     id: 14,
     nombre: "Niño Meme",
@@ -158,7 +162,7 @@ const impresiones = [
     tags: "Obra",
     ilustrador: ilustradores[0],
     stock: 12,
-
+    atributo : atributos[0],
   }, {
     id: 15,
     nombre: "Perrito TDFW",
@@ -168,7 +172,7 @@ const impresiones = [
     tags: "Meme",
     ilustrador: ilustradores[0],
     stock: 12,
-
+    atributo : atributos[2],
   }, {
     id: 16,
     nombre: "Stich lentes",
@@ -178,7 +182,7 @@ const impresiones = [
     tags: "Obra",
     ilustrador: ilustradores[0],
     stock: 12,
-
+    atributo : atributos[1],
   }, {
     id: 17,
     nombre: "El Viaje de Chihiro",
@@ -188,7 +192,7 @@ const impresiones = [
     tags: "Anime",
     ilustrador: ilustradores[0],
     stock: 12,
-
+    atributo : atributos[1],
   }, {
     id: 18,
     nombre: "Arctic Monkets",
@@ -198,7 +202,7 @@ const impresiones = [
     tags: "Musica",
     ilustrador: ilustradores[0],
     stock: 12,
-
+    atributo : atributos[2],
   }, {
     id: 19,
     nombre: "Converse",
@@ -208,7 +212,7 @@ const impresiones = [
     tags: "Moda",
     ilustrador: ilustradores[0],
     stock: 12,
-
+    atributo : atributos[0],
   },
 
 ];

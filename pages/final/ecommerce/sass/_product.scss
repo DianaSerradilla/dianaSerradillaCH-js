@@ -87,11 +87,25 @@
   }
 }
 
+
+.message-noStock{
+      background: #e53637;
+    color: white;
+    width: max-content;
+    padding: 0.2rem;
+    border-radius: 10px;
+}
 .product__item__pic {
-    // height: 260px;
+    height: 260px;
+    width: 260px;
     position: relative;
     background-position: center center;
 
+
+    img{
+      object-fit: cover;
+      width: 100%;
+    }
     .label {
       color: $heading-color;
       font-size: 11px;
