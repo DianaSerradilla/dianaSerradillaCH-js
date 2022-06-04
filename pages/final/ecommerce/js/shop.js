@@ -16,8 +16,7 @@ class Sticker {
 
 
   agregarUnidadCarrito(){ 
-    this.cantidadTotalC++;
-    
+    this.cantidadTotalC++;    
   }
 
 
@@ -32,224 +31,13 @@ class Sticker {
 }
 
 
-const categorias = ["Caricaturas", "Música", "Series", "Deporte", "Anime", "Aesthetic", "Animales", "Banderas", "Videojuegos", "Naturaleza", "Politica", "Memes","Comida","Peliculas", ];
 
-
-const ilustradores = ["Anónimo", "Willian Santiago", "Naranjalidad", "Nur Ventura", "Daniella Martí"];
-
-const impresiones = [
-  {
-    id: 0,
-    nombre: "Tea Rex",
-    categoria: categorias[11],
-    img: "img/stickers/tearex.jpg",
-    precio: 150,
-    tags: "meme",
-    ilustrador: ilustradores[0],
-    stock: 2,
-
-  },
-  {
-    id: 1,
-    nombre: "Harry Style",
-    categoria: categorias[1],
-    img: "img/stickers/harry.jpg",
-    precio: 120,
-    tags: "música",
-    ilustrador: ilustradores[0],
-    stock: 2,
-  },
-  {
-    id: 2,
-    nombre: "Dark",
-    categoria:  categorias[2],
-    img: "img/stickers/dark.jpg",
-    precio: 250,
-    tags: "Series",
-    ilustrador: ilustradores[0],
-    stock: 7,
-  },
-  {
-    id: 3,
-    nombre: "Mc",
-    categoria:  categorias[12],
-    img: "img/stickers/mc.jpg",
-    precio: 350,
-    tags: "Comida",
-    ilustrador: ilustradores[0],
-    stock: 10,
-
-  },
-   {
-    id: 4,
-    nombre: "Thor and Loki",
-    categoria:  categorias[13],
-    img: "img/stickers/thorLoki.jpg",
-    precio: 250,
-    tags: "Serie",
-    ilustrador: ilustradores[0],
-    stock: 10,
-
-  },
-   {
-    id: 5,
-    nombre: "Creación de Adan",
-    categoria:  categorias[5],
-    img: "img/stickers/adanObra.jpg",
-    precio: 271,
-    tags: "Obra",
-    ilustrador: ilustradores[0],
-    stock: 12,
-
-  },
-
-   {
-    id: 6,
-    nombre: "Bellota dormida",
-    categoria:  categorias[0],
-    img: "img/stickers/bellotaDormida.jpg",
-    precio: 233,
-    tags: "Caricatura",
-    ilustrador: ilustradores[0],
-    stock: 12,
-
-  }, {
-    id: 7,
-    nombre: "Billie Elish Illustracion",
-    categoria:  categorias[1],
-    img: "img/stickers/billieE.jpg",
-    precio: 112,
-    tags: "Música",
-    ilustrador: ilustradores[0],
-    stock: 12,
-
-  }, {
-    id: 8,
-    nombre: "Billie Elish",
-    categoria:  categorias[1],
-    img: "img/stickers/billieE-uno.jpg",
-    precio: 100,
-    tags: "Música",
-    ilustrador: ilustradores[0],
-    stock: 12,
-
-  }, {
-    id: 9,
-    nombre: "Leonardo Di Caprio meme",
-    categoria:  categorias[11],
-    img: "img/stickers/diCaprioMeme.jpg",
-    precio: 50,
-    tags: "Meme",
-    ilustrador: ilustradores[0],
-    stock: 12,
-
-  }, {
-    id: 10,
-    nombre: "Estatua Meme",
-    categoria:  categorias[11],
-    img: "img/stickers/estatua.jpg",
-    precio: 250,
-    tags: "Obra",
-    ilustrador: ilustradores[0],
-    stock: 12,
-
-  }, {
-    id: 11,
-    nombre: "Harry Potter Ilustracion",
-    categoria:  categorias[13],
-    img: "img/stickers/harryPotter.jpg",
-    precio: 250,
-    tags: "Fantasia",
-    ilustrador: ilustradores[0],
-    stock: 12,
-
-  }, {
-    id: 12,
-    nombre: "Maradonna Ilustracion",
-    categoria:  categorias[3],
-    img: "img/stickers/maradona.jpg",
-    precio: 25,
-    tags: "Futbol",
-    ilustrador: ilustradores[0],
-    stock: 12,
-
-  }, {
-    id: 13,
-    nombre: "Messi Ilustracion",
-    categoria:  categorias[3],
-    img: "img/stickers/messiCopa.jpg",
-    precio: 450,
-    tags: "Futbol",
-    ilustrador: ilustradores[0],
-    stock: 12,
-
-  }, {
-    id: 14,
-    nombre: "Niño Meme",
-    categoria:  categorias[11],
-    img: "img/stickers/neneMeme.jpg",
-    precio: 250,
-    tags: "Obra",
-    ilustrador: ilustradores[0],
-    stock: 12,
-
-  }, {
-    id: 15,
-    nombre: "Perrito TDFW",
-    categoria:  categorias[11],
-    img: "img/stickers/perritoTFW.jpg",
-    precio: 250,
-    tags: "Meme",
-    ilustrador: ilustradores[0],
-    stock: 12,
-
-  }, {
-    id: 16,
-    nombre: "Stich lentes",
-    categoria:  categorias[0],
-    img: "img/stickers/stichLentes.jpg",
-    precio: 250,
-    tags: "Obra",
-    ilustrador: ilustradores[0],
-    stock: 12,
-
-  }, {
-    id: 17,
-    nombre: "El Viaje de Chihiro",
-    categoria:  categorias[4],
-    img: "img/stickers/viajeChihiro.jpg",
-    precio: 310,
-    tags: "Anime",
-    ilustrador: ilustradores[0],
-    stock: 12,
-
-  }, {
-    id: 18,
-    nombre: "Arctic Monkets",
-    categoria:  categorias[1],
-    img: "img/stickers/arctic.jpg",
-    precio: 225,
-    tags: "Musica",
-    ilustrador: ilustradores[0],
-    stock: 12,
-
-  }, {
-    id: 19,
-    nombre: "Converse",
-    categoria:  categorias[5],
-    img: "img/stickers/converse.jpg",
-    precio: 415,
-    tags: "Moda",
-    ilustrador: ilustradores[0],
-    stock: 12,
-
-  },
-
-];
 
 let carrito = [];
 let cantidadTCarrito = document.getElementById("carrito-totalCantidad");
+let cantidadTCarritoMobile = document.getElementById("carrito-totalCantidad-mobile");
 let precioTCarrito = document.getElementById("carrito-totalPrecio");
+let precioTCarritoMobile = document.getElementById("carrito-totalPrecio-mobile");
 let totalStickers = document.getElementById("total-stickers");
 let totalStickersS = document.getElementById("total-stickersS");
 let mostrarTodos = document.getElementsByClassName("mostrar-todos");
@@ -261,7 +49,9 @@ let precioTotal = JSON.parse(sessionStorage.getItem("precioTotal")) || 0;
 sessionStorage.setItem("cantidadTotal", cantidadContador);
 sessionStorage.setItem("precioTotal", precioTotal);
 precioTCarrito.innerHTML = precioTotal;
+precioTCarritoMobile.innerHTML = precioTotal;
 cantidadTCarrito.innerHTML= cantidadContador;
+cantidadTCarritoMobile.innerHTML= cantidadContador;
 
 
 
@@ -274,42 +64,32 @@ function comprar(stickerID){
  
   impresiones.forEach(sticker => {
     if(sticker.id == stickerID){ 
-      console.log(sticker.stock)
-      if(sticker.precio < 0){
-        alert("No hay mas stock")
-        
-      }else{
-        precioTotal+= sticker.precio;
-          let stickerEnCarrito = carrito.find((elemento) => elemento.id = stickerID);
-          if(stickerEnCarrito){
-          let index = carrito.findIndex((elemento) => elemento.id === stickerEnCarrito.id)
-          carrito[index].agregarUnidadCarrito();
-          carrito[index].actualizarPrecioTotalCarrito();
-          Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Has añadido otro elemento al carrito',
-          showConfirmButton: false,
-          timer: 1500
-        })
 
-          console.table(carrito);
-        }else { 
-          carrito.push(new Sticker(impresiones[stickerID]));       
-     
-         
-          Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Has añadido un elemento al carrito',
-          showConfirmButton: false,
-          timer: 1500
-            })
+      precioTotal+= sticker.precio;
+          // Swal.fire({
+          // position: 'center',
+          // icon: 'success',
+          // title: 'Has añadido un elemento al carrito',
+          // showConfirmButton: false,
+          // timer: 1500
+          //   })
 
-          console.table(carrito);
-        }
-      }
-    }    
+
+
+
+          Toastify({
+              text: "Has añadido un elemento al carrito",
+              duration: 3000,
+              close: false,
+              gravity: "top", // `top` or `bottom`
+              position: "left", // `left`, `center` or `right`
+              stopOnFocus: true, // Prevents dismissing of toast on hover
+              style: {
+                background: "linear-gradient(to right, #e53637, #F98686)",
+              },
+              onClick: function(){} // Callback after click
+            }).showToast();
+            }    
   });
 
  
@@ -323,7 +103,9 @@ function comprar(stickerID){
   precioTotal = JSON.parse(sessionStorage.getItem("precioTotal")) ;
   cantidadContador= JSON.parse(sessionStorage.getItem("cantidadTotal"));  
   precioTCarrito.innerHTML = precioTotal;
+  precioTCarritoMobile.innerHTML = precioTotal;
   cantidadTCarrito.innerHTML= cantidadContador;
+  cantidadTCarritoMobile.innerHTML= cantidadContador;
 };
 
 
