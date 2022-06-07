@@ -72,10 +72,6 @@ cantidadTCarritoMobile.innerHTML= cantidadContador;
 
 
 function comprar(stickerID){  
-
-
-
-
   
   impresiones.forEach(sticker => {
     if(sticker.id == stickerID){ 
@@ -85,18 +81,7 @@ function comprar(stickerID){
       precioTotal+= sticker.precio;
       sticker.stock--;
       console.table(sticker)
-          // Swal.fire({
-          // position: 'center',
-          // icon: 'success',
-          // title: 'Has añadido un elemento al carrito',
-          // showConfirmButton: false,
-          // timer: 1500
-          //   })
-
-
-
-
-          Toastify({
+                  Toastify({
               text: "Has añadido un elemento al carrito",
               duration: 3000,
               close: false,
@@ -229,8 +214,7 @@ function imprimirStickersIndex(impresiones){
                                
                             </div>
           </div>
-        `;
-        
+        `;        
     contenedorIndex.appendChild(cardIndex);
     let buttonAdd = document.getElementById(`agregar${sticker.id}`)
     buttonAdd.addEventListener("click", () => comprar(sticker.id));
@@ -383,7 +367,7 @@ for (let i = 0; i < mostrarTodos.length; i++) {
 
 
 imprimirStickersIndex(impresiones);
-// imprimirStickers(impresiones);
+imprimirStickers(impresiones);
 imprimirCategorias(categorias,impresiones);
 imprimirIlustrador(ilustradores,impresiones);
 imprimirPrecios();

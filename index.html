@@ -11,21 +11,22 @@
   <link rel="icon" type="image/png" sizes="192x192"
     href="//res.cloudinary.com/hdsqazxtw/image/upload/v1558445735/android-icon-192x192_bnwso6.png">
   <title>Login - Diana Serradilla</title>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
 </head>
 
 <body>
-  <!-- partial:index.partial.html -->
-  <form class="login">
-    <input type="text" placeholder="Username" class="login-user">
-    <input type="password" placeholder="Password" class="login-password">
-    <button class="login-button">Login</button>
-  </form>
+
+  <div class="login">
+    <input type="text" placeholder="Username" class="login-user" id="login-user">
+    <input type="password" placeholder="Password" class="login-password" id="login-password">
+    <button class="login-button" id="login-button">Login</button>
+  </div>
 
 
-  <script src="js/login.js"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <script src="js/login.js"></script>
 
 </body>
 
