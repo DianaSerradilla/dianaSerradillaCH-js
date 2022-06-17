@@ -1,132 +1,25 @@
 
 
 
-class Sticker {
-  constructor(sticker) {
-    this.id = sticker.id;
-    this.nombre = sticker.nombre;
-    this.categoria = sticker.categoria;
-    this.img = sticker.img;
-    this.precio = sticker.precio;
-    this.tags = sticker.tags;
-    this.stock = sticker.stock;
-    this.cantidadTotalC = 1;
-    this.precioTotalC = sticker.precio;
-  }
 
-
-  agregarUnidadCarrito(){ 
-    this.cantidadTotalC++;    
-  }
-
-
-
-   quitarrUnidadCarrito(){ 
-    this.cantidadTotalC--;
-  }
-
-  actualizarPrecioTotalCarrito(){
-    this.precioTotalC = this.precio * this.cantidadTotalC;
-  }
-}
-
-
-
-
-let carrito = [];
-let cantidadTCarrito = document.getElementById("carrito-totalCantidad");
-let cantidadTCarritoMobile = document.getElementById("carrito-totalCantidad-mobile");
-let precioTCarrito = document.getElementById("carrito-totalPrecio");
-let precioTCarritoMobile = document.getElementById("carrito-totalPrecio-mobile");
 let totalStickers = document.getElementById("total-stickers");
 let totalStickersS = document.getElementById("total-stickersS");
 let mostrarTodos = document.getElementsByClassName("mostrar-todos");
-// let cantidadContador=0;
-let cantidadContador= JSON.parse(sessionStorage.getItem("cantidadTotal")) || 0;
-// let precioTotal = 0;
-let precioTotal = JSON.parse(sessionStorage.getItem("precioTotal")) || 0;
-let stickersIndex = document.getElementsByClassName("stickers-index");
-
-
-function pruebaF() { 
-  alert("El id de este boton es" + stickersIndex[i].id);
-}
-
-for (let i = 0; i < stickersIndex.length; i++) {
-stickersIndex[i].addEventListener("click", () => pruebaF()
-);
-
-  
-}
-
-
-
-
-sessionStorage.setItem("cantidadTotal", cantidadContador);
-sessionStorage.setItem("precioTotal", precioTotal);
-precioTCarrito.innerHTML = precioTotal;
-precioTCarritoMobile.innerHTML = precioTotal;
-cantidadTCarrito.innerHTML= cantidadContador;
-cantidadTCarritoMobile.innerHTML= cantidadContador;
-
-
-
-function comprar(stickerID){  
-  
-  impresiones.forEach(sticker => {
-    if(sticker.id == stickerID){ 
-      
-      if(sticker.stock>0){
-        cantidadContador++;
-      precioTotal+= sticker.precio;
-      sticker.stock--;
-      console.table(sticker)
-                  Toastify({
-              text: "Has añadido un elemento al carrito",
-              duration: 3000,
-              close: false,
-              gravity: "top", // `top` or `bottom`
-              position: "left", // `left`, `center` or `right`
-              stopOnFocus: true, // Prevents dismissing of toast on hover
-              style: {
-                background: "linear-gradient(to right, #007566, #8FC1B5)",
-              },
-              onClick: function(){} // Callback after click
-            }).showToast();
-        }else{
-          Toastify({
-              text: "No hay mas stock de este producto",
-              duration: 3000,
-              close: false,
-              gravity: "top", // `top` or `bottom`
-              position: "left", // `left`, `center` or `right`
-              stopOnFocus: true, // Prevents dismissing of toast on hover
-              style: {
-                background: "linear-gradient(to right, #e53637, #EC7F7F)",
-              },
-              onClick: function(){} // Callback after click
-            }).showToast();
-        }  
-    }  
-
-
-  });
 
 
 
 
 
- 
+//--------------------------Declaraciones Fin
 
-  sessionStorage.setItem("cantidadTotal", cantidadContador);
-  sessionStorage.setItem("precioTotal", precioTotal);  
-  precioTotal = JSON.parse(sessionStorage.getItem("precioTotal")) ;
-  cantidadContador= JSON.parse(sessionStorage.getItem("cantidadTotal"));  
-  precioTCarrito.innerHTML = precioTotal;
-  precioTCarritoMobile.innerHTML = precioTotal;
-  cantidadTCarrito.innerHTML= cantidadContador;
-  cantidadTCarritoMobile.innerHTML= cantidadContador;
-};
+
+
+
+
+
+//-------------------------Funciones inicio
+
+
 
 
 
@@ -165,67 +58,6 @@ function imprimirStickers(impresiones) {
   }
 
 
-}
-
-function imprimirStickersIndex(impresiones){ 
-
-  let contenedorIndex = document.getElementById("contenedorIndex");
-  contenedorIndex.innerHTML = "";
-  let contador=0;
-  
-    for (const sticker of impresiones) {
-      contador++;
-      if(contador<9){
-        let cardIndex = document.createElement("div");
-          switch (sticker.atributo) {
-            case "nuevo":
-              // console.log("0")
-              cardIndex.className+= 'col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals';
-              break;
-            case "oferta":
-              cardIndex.className+= 'col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix hot-sales';
-              // console.log("1")
-
-              break;
-            case "popular": 
-              cardIndex.className+= 'col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix ';
-              // console.log("2")
-
-            break;
-            default:
-              break;
-          }
-        cardIndex.setAttribute('id', 'sticker');
-          cardIndex.innerHTML= `
-        <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg="">
-                                <img src="${sticker.img}" alt="${sticker.nombre}">
-                                <ul class="product__hover">
-                                    <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
-
-                                    <li><a href="#"><img src="img/icon/search.png" alt=""></a></li>
-                                </ul>
-                            </div>
-                            <div class="product__item__text">
-                                <h6>${sticker.nombre}</h6>
-                                <a href="#" class="add-cart" id="agregar${sticker.id}">+ Add To Cart</a>
-
-                                <h5>$ ${sticker.precio}</h5>
-                               
-                            </div>
-          </div>
-        `;        
-    contenedorIndex.appendChild(cardIndex);
-    let buttonAdd = document.getElementById(`agregar${sticker.id}`)
-    buttonAdd.addEventListener("click", () => comprar(sticker.id));
-      }else{ 
-        break;
-      }
-    }
-       
-  
-  
-  
 }
 
 
@@ -315,7 +147,7 @@ function filtrarCategoria(categoria,impresiones){
   contenedor.innerHTML = "";
   totalStickers.innerHTML = impresionesXCategoria.length;
   imprimirStickers(impresionesXCategoria)
-  impresionesXCategoria.length = 0;
+  // impresionesXCategoria.length = 0;
 }
 
 function filtrarIlustrador(ilustrador,impresiones){
@@ -366,10 +198,18 @@ for (let i = 0; i < mostrarTodos.length; i++) {
 }
 
 
-imprimirStickersIndex(impresiones);
+//-------------------------Funciones fin
+
+
+//-------------------------Invocaciones e impresiones inicio
 imprimirStickers(impresiones);
 imprimirCategorias(categorias,impresiones);
 imprimirIlustrador(ilustradores,impresiones);
 imprimirPrecios();
-totalStickersS.innerHTML = impresiones.length;
+
+
+
+//-------------------------Invocaciones e impresiones fin
+
+
 

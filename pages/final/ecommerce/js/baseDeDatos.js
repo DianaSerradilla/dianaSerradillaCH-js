@@ -14,7 +14,6 @@ const impresiones = [
     precio: 150,
     tags: "meme",
     ilustrador: ilustradores[0],
-    stock: 2,
     atributo : atributos[0],
   },
   {
@@ -25,7 +24,6 @@ const impresiones = [
     precio: 120,
     tags: "música",
     ilustrador: ilustradores[0],
-    stock: 2,
     atributo : atributos[1],
   },
   {
@@ -36,7 +34,6 @@ const impresiones = [
     precio: 250,
     tags: "Series",
     ilustrador: ilustradores[0],
-    stock: 7,
     atributo : atributos[2],
   },
   {
@@ -47,7 +44,6 @@ const impresiones = [
     precio: 350,
     tags: "Comida",
     ilustrador: ilustradores[0],
-    stock: 10,
     atributo : atributos[2],
   },
    {
@@ -58,7 +54,6 @@ const impresiones = [
     precio: 250,
     tags: "Serie",
     ilustrador: ilustradores[0],
-    stock: 10,
     atributo : atributos[1],
   },
    {
@@ -69,7 +64,6 @@ const impresiones = [
     precio: 271,
     tags: "Obra",
     ilustrador: ilustradores[0],
-    stock: 12,
     atributo : atributos[0],
   },
 
@@ -81,7 +75,6 @@ const impresiones = [
     precio: 233,
     tags: "Caricatura",
     ilustrador: ilustradores[0],
-    stock: 12,
     atributo : atributos[0],
   }, {
     id: 7,
@@ -91,7 +84,6 @@ const impresiones = [
     precio: 112,
     tags: "Música",
     ilustrador: ilustradores[0],
-    stock: 12,
     atributo : atributos[2],
   }, {
     id: 8,
@@ -101,7 +93,6 @@ const impresiones = [
     precio: 100,
     tags: "Música",
     ilustrador: ilustradores[0],
-    stock: 12,
     atributo : atributos[1],
   }, {
     id: 9,
@@ -111,7 +102,6 @@ const impresiones = [
     precio: 50,
     tags: "Meme",
     ilustrador: ilustradores[0],
-    stock: 12,
     atributo : atributos[2],
   }, {
     id: 10,
@@ -121,7 +111,6 @@ const impresiones = [
     precio: 250,
     tags: "Obra",
     ilustrador: ilustradores[0],
-    stock: 12,
     atributo : atributos[1],
   }, {
     id: 11,
@@ -131,7 +120,6 @@ const impresiones = [
     precio: 250,
     tags: "Fantasia",
     ilustrador: ilustradores[0],
-    stock: 12,
     atributo : atributos[1],
   }, {
     id: 12,
@@ -141,7 +129,6 @@ const impresiones = [
     precio: 25,
     tags: "Futbol",
     ilustrador: ilustradores[0],
-    stock: 12,
     atributo : atributos[2],
   }, {
     id: 13,
@@ -151,7 +138,6 @@ const impresiones = [
     precio: 450,
     tags: "Futbol",
     ilustrador: ilustradores[0],
-    stock: 12,
     atributo : atributos[0],
   }, {
     id: 14,
@@ -161,7 +147,6 @@ const impresiones = [
     precio: 250,
     tags: "Obra",
     ilustrador: ilustradores[0],
-    stock: 12,
     atributo : atributos[0],
   }, {
     id: 15,
@@ -171,7 +156,6 @@ const impresiones = [
     precio: 250,
     tags: "Meme",
     ilustrador: ilustradores[0],
-    stock: 12,
     atributo : atributos[2],
   }, {
     id: 16,
@@ -181,7 +165,6 @@ const impresiones = [
     precio: 250,
     tags: "Obra",
     ilustrador: ilustradores[0],
-    stock: 12,
     atributo : atributos[1],
   }, {
     id: 17,
@@ -191,7 +174,6 @@ const impresiones = [
     precio: 310,
     tags: "Anime",
     ilustrador: ilustradores[0],
-    stock: 12,
     atributo : atributos[1],
   }, {
     id: 18,
@@ -201,7 +183,6 @@ const impresiones = [
     precio: 225,
     tags: "Musica",
     ilustrador: ilustradores[0],
-    stock: 12,
     atributo : atributos[2],
   }, {
     id: 19,
@@ -211,7 +192,6 @@ const impresiones = [
     precio: 415,
     tags: "Moda",
     ilustrador: ilustradores[0],
-    stock: 12,
     atributo : atributos[0],
   },
 
