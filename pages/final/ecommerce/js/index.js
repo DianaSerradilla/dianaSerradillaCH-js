@@ -1,36 +1,49 @@
+//-------------Declaraciones inicio
+
 let stickersIndex = document.getElementsByClassName("stickers-index");
 
+//-------------Declaraciones fin
 
-function imprimirStickersIndex(impresiones){ 
+//-------------Desarrollo de funciones inicio
 
+//-----Función imprimir stickers:
+// La misma sirve para poder imprimir en el index, es decir en "Inicio", los stickers traidos de la base de datos(arrays). Cuenta con una peculiaridad a diferencia de lo que se ve en la pestaña de "Shop" y es que:
+// - Primero: imprime solo 9, no todo el arrays.
+// - Segundo: según su atributo(nuevo,oferta o popular), agrega una clase respectivamente para luego poder filtrar
+// Desde esta pestañana podemos acceder a comprar agregando con el boton "add to cart"
+
+function imprimirStickersIndex(impresiones) {
+  //------Primero elijo el contenedor en el cual voy a incluir estos stickers.
   let contenedorIndex = document.getElementById("contenedorIndex");
+  //-----Lo inicializo vacío para que no se sobreescriba la información luego.
   contenedorIndex.innerHTML = "";
-  let contador=0;
-  
-    for (const sticker of impresiones) {
-      contador++;
-      if(contador<9){
-        let cardIndex = document.createElement("div");
-          switch (sticker.atributo) {
-            case "nuevo":
-              // console.log("0")
-              cardIndex.className+= 'col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals';
-              break;
-            case "oferta":
-              cardIndex.className+= 'col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix hot-sales';
-              // console.log("1")
+  //-------Este contador me va a servir para cortar el bucle e imprimir solo 9.
+  let contador = 0;
 
-              break;
-            case "popular": 
-              cardIndex.className+= 'col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix ';
-              // console.log("2")
+  for (const sticker of impresiones) {
+    contador++;
+    if (contador < 9) {
+      let cardIndex = document.createElement("div");
+      //------Este switch lo que hace es leer el atributo y en base a eso, le coloca una cierta clase al contenedor del sticker.
+      switch (sticker.atributo) {
+        case "nuevo":
+          cardIndex.className +=
+            "col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals";
+          break;
+        case "oferta":
+          cardIndex.className +=
+            "col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix hot-sales";
 
-            break;
-            default:
-              break;
-          }
-        cardIndex.setAttribute('id', 'sticker');
-          cardIndex.innerHTML= `
+          break;
+        case "popular":
+          cardIndex.className +=
+            "col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix ";
+          break;
+        default:
+          break;
+      }
+      //------Aquí procedo a imprimir la tarjeta con el sticker y su información
+      cardIndex.innerHTML = `
         <div class="product__item">
                             <div class="product__item__pic set-bg" data-setbg="">
                                 <img src="${sticker.img}" alt="${sticker.nombre}">
@@ -48,18 +61,21 @@ function imprimirStickersIndex(impresiones){
                                
                             </div>
           </div>
-        `;        
-    contenedorIndex.appendChild(cardIndex);
-    let buttonAdd = document.getElementById(`agregar${sticker.id}`)
-    buttonAdd.addEventListener("click", () => comprar(sticker.id));
-      }else{ 
-        break;
-      }
+        `;
+      contenedorIndex.appendChild(cardIndex);
+      //---------Aquí procedo a guardar en el boton el ID con el número del ID del Sticker para luego invocar a la función "comprar".
+      let buttonAdd = document.getElementById(`agregar${sticker.id}`);
+      buttonAdd.addEventListener("click", () => comprar(sticker.id));
+    } else {
+      //------Rompo con el bucle en caso de que el contador supere los 9.
+      break;
     }
-       
-  
-  
-  
+  }
 }
+//-------------Desarrollo de funciones fin
+
+//-------------Invocación de funciones inicio
 
 imprimirStickersIndex(impresiones);
+
+//-------------Invocación de funciones fin
