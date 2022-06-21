@@ -23,6 +23,8 @@
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
 </head>
 
 <body>
@@ -51,8 +53,8 @@
         <div class="offcanvas__nav__option">
             <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
             <!-- <a href="#"><img src="img/icon/heart.png" alt=""></a> -->
-            <a href="#"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
-            <div class="price">$0.00</div>
+            <a href="#"><img src="img/icon/cart.png" alt=""><span id="carrito-totalCantidad-mobile">0</span></a>
+            <div class="price">$<span id="carrito-totalPrecio-mobile">0</span></div>
         </div>
         <div id="mobile-menu-wrap"></div>
         <!-- <div class="offcanvas__text">
@@ -167,49 +169,9 @@
                                     <th></th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="contenedor-carrito">
                                 <tr>
-                                    <td class="product__cart__item">
-                                        <div class="product__cart__item__pic">
-                                            <img src="img/stickers/harry.jpg" alt="">
-                                        </div>
-                                        <div class="product__cart__item__text">
-                                            <h6>Harry Styles</h6>
-                                            <h5>$98.49</h5>
-                                        </div>
-                                    </td>
-                                    <td class="quantity__item">
-                                        <div class="quantity">
-                                            <div class="pro-qty-2">
-                                                <input type="text" value="1">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="cart__price">$ 30.00</td>
-                                    <td class="cart__close"><i class="fa fa-close"></i></td>
-                                </tr>
-                                <tr>
-                                    <td class="product__cart__item">
-                                        <div class="product__cart__item__pic">
-                                            <img src="img/stickers/thorLoki.jpg" alt="">
-                                        </div>
-                                        <div class="product__cart__item__text">
-                                            <h6>Thor y Loki</h6>
-                                            <h5>$98.49</h5>
-                                        </div>
-                                    </td>
-                                    <td class="quantity__item">
-                                        <div class="quantity">
-                                            <div class="pro-qty-2">
-                                                <input type="text" value="1">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="cart__price">$ 32.50</td>
-                                    <td class="cart__close"><i class="fa fa-close"></i></td>
-                                </tr>
-                                <tr>
-                                    <td class="product__cart__item">
+                                    <!-- <td class="product__cart__item">
                                         <div class="product__cart__item__pic">
                                             <img src="img/stickers/lilosteach.jpg" alt="">
                                         </div>
@@ -226,28 +188,10 @@
                                         </div>
                                     </td>
                                     <td class="cart__price">$ 47.00</td>
-                                    <td class="cart__close"><i class="fa fa-close"></i></td>
+                                    <td class="cart__close"><i class="fa fa-close"></i></td> -->
                                 </tr>
-                                <tr>
-                                    <td class="product__cart__item">
-                                        <div class="product__cart__item__pic">
-                                            <img src="img/stickers/tearex.jpg" alt="">
-                                        </div>
-                                        <div class="product__cart__item__text">
-                                            <h6>Tea Rex</h6>
-                                            <h5>$98.49</h5>
-                                        </div>
-                                    </td>
-                                    <td class="quantity__item">
-                                        <div class="quantity">
-                                            <div class="pro-qty-2">
-                                                <input type="text" value="1">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="cart__price">$ 30.00</td>
-                                    <td class="cart__close"><i class="fa fa-close"></i></td>
-                                </tr>
+
+
                             </tbody>
                         </table>
                     </div>
@@ -258,8 +202,8 @@
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="continue__btn update__btn">
-                                <a href="#"><i class="fa fa-spinner"></i> Actualizar carrito</a>
+                            <div class="continue__btn update__btn" id="contenedor-limpiarCarrito">
+                                <a href="#" id="limpiar-carrito"><i class="fa fa-spinner"></i> Limpiar carrito</a>
                             </div>
                         </div>
                     </div>
@@ -275,8 +219,8 @@
                     <div class="cart__total">
                         <h6>Total carrito</h6>
                         <ul>
-                            <li>Subtotal <span>$ 169.50</span></li>
-                            <li>Total <span>$ 169.50</span></li>
+                            <li>Cantidad <span> <span id="cantidad-checkout">0</span></span></li>
+                            <li>Total <span>$ <span id="subtotal-checkout">0</span></span></li>
                         </ul>
                         <a href="checkout.html" class="primary-btn">Pagar</a>
                     </div>
@@ -374,8 +318,13 @@
     <script src="js/mixitup.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/shop.js"></script>
+    <script src="js/baseDeDatos.js"></script>
+    <script src="js/comprar.js"></script>
+    <script src="js/checkout.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+
 </body>
 
 </html>

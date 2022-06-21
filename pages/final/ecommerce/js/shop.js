@@ -1,146 +1,27 @@
-
-
-
-class Sticker {
-  constructor(sticker) {
-    this.id = sticker.id;
-    this.nombre = sticker.nombre;
-    this.categoria = sticker.categoria;
-    this.img = sticker.img;
-    this.precio = sticker.precio;
-    this.tags = sticker.tags;
-    this.stock = sticker.stock;
-    this.cantidadTotalC = 1;
-    this.precioTotalC = sticker.precio;
-  }
-
-
-  agregarUnidadCarrito(){ 
-    this.cantidadTotalC++;    
-  }
-
-
-
-   quitarrUnidadCarrito(){ 
-    this.cantidadTotalC--;
-  }
-
-  actualizarPrecioTotalCarrito(){
-    this.precioTotalC = this.precio * this.cantidadTotalC;
-  }
-}
-
-
-
-
-let carrito = [];
-let cantidadTCarrito = document.getElementById("carrito-totalCantidad");
-let cantidadTCarritoMobile = document.getElementById("carrito-totalCantidad-mobile");
-let precioTCarrito = document.getElementById("carrito-totalPrecio");
-let precioTCarritoMobile = document.getElementById("carrito-totalPrecio-mobile");
+//-------------Declaraciones inicio
 let totalStickers = document.getElementById("total-stickers");
 let totalStickersS = document.getElementById("total-stickersS");
 let mostrarTodos = document.getElementsByClassName("mostrar-todos");
-// let cantidadContador=0;
-let cantidadContador= JSON.parse(sessionStorage.getItem("cantidadTotal")) || 0;
-// let precioTotal = 0;
-let precioTotal = JSON.parse(sessionStorage.getItem("precioTotal")) || 0;
-let stickersIndex = document.getElementsByClassName("stickers-index");
+//--------------------------Declaraciones Fin
 
+//-------------Desarrollo de funciones inicio
 
-function pruebaF() { 
-  alert("El id de este boton es" + stickersIndex[i].id);
-}
-
-for (let i = 0; i < stickersIndex.length; i++) {
-stickersIndex[i].addEventListener("click", () => pruebaF()
-);
-
-  
-}
-
-
-
-
-sessionStorage.setItem("cantidadTotal", cantidadContador);
-sessionStorage.setItem("precioTotal", precioTotal);
-precioTCarrito.innerHTML = precioTotal;
-precioTCarritoMobile.innerHTML = precioTotal;
-cantidadTCarrito.innerHTML= cantidadContador;
-cantidadTCarritoMobile.innerHTML= cantidadContador;
-
-
-
-function comprar(stickerID){  
-  
-  impresiones.forEach(sticker => {
-    if(sticker.id == stickerID){ 
-      
-      if(sticker.stock>0){
-        cantidadContador++;
-      precioTotal+= sticker.precio;
-      sticker.stock--;
-      console.table(sticker)
-                  Toastify({
-              text: "Has añadido un elemento al carrito",
-              duration: 3000,
-              close: false,
-              gravity: "top", // `top` or `bottom`
-              position: "left", // `left`, `center` or `right`
-              stopOnFocus: true, // Prevents dismissing of toast on hover
-              style: {
-                background: "linear-gradient(to right, #007566, #8FC1B5)",
-              },
-              onClick: function(){} // Callback after click
-            }).showToast();
-        }else{
-          Toastify({
-              text: "No hay mas stock de este producto",
-              duration: 3000,
-              close: false,
-              gravity: "top", // `top` or `bottom`
-              position: "left", // `left`, `center` or `right`
-              stopOnFocus: true, // Prevents dismissing of toast on hover
-              style: {
-                background: "linear-gradient(to right, #e53637, #EC7F7F)",
-              },
-              onClick: function(){} // Callback after click
-            }).showToast();
-        }  
-    }  
-
-
-  });
-
-
-
-
-
- 
-
-  sessionStorage.setItem("cantidadTotal", cantidadContador);
-  sessionStorage.setItem("precioTotal", precioTotal);  
-  precioTotal = JSON.parse(sessionStorage.getItem("precioTotal")) ;
-  cantidadContador= JSON.parse(sessionStorage.getItem("cantidadTotal"));  
-  precioTCarrito.innerHTML = precioTotal;
-  precioTCarritoMobile.innerHTML = precioTotal;
-  cantidadTCarrito.innerHTML= cantidadContador;
-  cantidadTCarritoMobile.innerHTML= cantidadContador;
-};
-
-
-
+//-----Función imprimir stickers:
+// Esta función me permite imprimir, en la pestaña de "Shop" todos los stickers guardados en la base de datos.
 function imprimirStickers(impresiones) {
-  
+  //-----Comienzo seleccionando el contenedor en el cual voy a imprimir los stickers.
   let contenedor = document.getElementById("contenedor");
+  //-----Esto me va a servir para imprimir el total de stickers en la frase "Mostrando 1-12 de 20 resultados"
   totalStickers.innerHTML = impresiones.length;
+  //-----Inicializo el contedor vacio para que luego no se se sobre escriba con los filtros
   contenedor.innerHTML = "";
   for (const sticker of impresiones) {
     let card = document.createElement("div");
-    card.className+='col-lg-4 col-md-6 col-sm-6',
-    card.setAttribute('id', 'sticker');
-    card.innerHTML =
-      `
+    (card.className += "col-lg-4 col-md-6 col-sm-6"), card.setAttribute(
+      "id",
+      "sticker"
+    );
+    card.innerHTML = `
                         
                             <div class="product__item">
                                 <div class="product__item__pic set-bg" data-setbg="${sticker.img}">
@@ -160,216 +41,180 @@ function imprimirStickers(impresiones) {
                         `;
 
     contenedor.appendChild(card);
-    let buttonAdd = document.getElementById(`agregar${sticker.id}`)
+    //-----Guardo el boton con el id del sticker para luego invocar a la función de comprar
+    let buttonAdd = document.getElementById(`agregar${sticker.id}`);
     buttonAdd.addEventListener("click", () => comprar(sticker.id));
   }
-
-
 }
 
-function imprimirStickersIndex(impresiones){ 
-
-  let contenedorIndex = document.getElementById("contenedorIndex");
-  contenedorIndex.innerHTML = "";
-  let contador=0;
-  
-    for (const sticker of impresiones) {
-      contador++;
-      if(contador<9){
-        let cardIndex = document.createElement("div");
-          switch (sticker.atributo) {
-            case "nuevo":
-              // console.log("0")
-              cardIndex.className+= 'col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals';
-              break;
-            case "oferta":
-              cardIndex.className+= 'col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix hot-sales';
-              // console.log("1")
-
-              break;
-            case "popular": 
-              cardIndex.className+= 'col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix ';
-              // console.log("2")
-
-            break;
-            default:
-              break;
-          }
-        cardIndex.setAttribute('id', 'sticker');
-          cardIndex.innerHTML= `
-        <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg="">
-                                <img src="${sticker.img}" alt="${sticker.nombre}">
-                                <ul class="product__hover">
-                                    <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
-
-                                    <li><a href="#"><img src="img/icon/search.png" alt=""></a></li>
-                                </ul>
-                            </div>
-                            <div class="product__item__text">
-                                <h6>${sticker.nombre}</h6>
-                                <a href="#" class="add-cart" id="agregar${sticker.id}">+ Add To Cart</a>
-
-                                <h5>$ ${sticker.precio}</h5>
-                               
-                            </div>
-          </div>
-        `;        
-    contenedorIndex.appendChild(cardIndex);
-    let buttonAdd = document.getElementById(`agregar${sticker.id}`)
-    buttonAdd.addEventListener("click", () => comprar(sticker.id));
-      }else{ 
-        break;
-      }
-    }
-       
-  
-  
-  
-}
-
-
-
-function imprimirCategorias(categorias,impresiones){
+//-----Función imprimir Categorias:
+//-----Esta función me permite imprimir, en el lado izquierdo todas las categorías que hay, según lo cargado en la base de datos. Como así también, la cantidad de stickers que hay por categoría y poder, invocar y filtrar según categoría.
+function imprimirCategorias(categorias, impresiones) {
   let contenedorCategorias = document.getElementById("contenedor-categorias");
 
   for (const i in categorias) {
     let categoria = document.createElement("li");
-    let contadorCantidad=0;    
+    let contadorCantidad = 0;
     for (const sticker of impresiones) {
-      if(categorias[i] == sticker.categoria){
-        contadorCantidad++;
-      }      
-    }
-
-    categoria.innerHTML = 
-    `<a href="#" id="categoria${categorias[i]}"> ${categorias[i]} (${contadorCantidad})</a>`
-
-    contenedorCategorias.appendChild(categoria)
-    contadorCantidad=0; 
-    let buttonCategoria = document.getElementById(`categoria${categorias[i]}`);
-    buttonCategoria.addEventListener("click",  () =>filtrarCategoria(categorias[i],impresiones));
-    
-  }
-
-};
-
-
-function imprimirIlustrador(ilustradores,impresiones){
-
-  let contenedorIlustradores = document.getElementById("contenedor-ilustradores");
-
-  for (const i in ilustradores) {
-    let ilustrador = document.createElement("li");
-    let contadorCantidad=0;    
-    for (const sticker of impresiones) {
-      if(ilustradores[i] == sticker.ilustrador){
+      if (categorias[i] == sticker.categoria) {
         contadorCantidad++;
       }
     }
-    ilustrador.innerHTML = 
-    `<a href="#" id="ilustrador${ilustradores[i]}"> ${ilustradores[i]} (${contadorCantidad})</a>`
-    contenedorIlustradores.appendChild(ilustrador)
-    contadorCantidad=0;
-    let buttonIlustrador = document.getElementById(`ilustrador${ilustradores[i]}`);
-    buttonIlustrador.addEventListener("click", () => filtrarIlustrador(ilustradores[i], impresiones));
+
+    categoria.innerHTML = `<a href="#" id="categoria${categorias[
+      i
+    ]}"> ${categorias[i]} (${contadorCantidad})</a>`;
+
+    contenedorCategorias.appendChild(categoria);
+    contadorCantidad = 0;
+    //-----Esto me permite guardar, como ID, la categoría para luego invocar a la función de filtración.
+    let buttonCategoria = document.getElementById(`categoria${categorias[i]}`);
+    buttonCategoria.addEventListener("click", () =>
+      filtrarCategoria(categorias[i], impresiones)
+    );
   }
+}
 
+//-----Función imprimir Ilustrador:
+//----------De la misma forma que anteriormente imprimi las categorías, hice lo mismo con los ilustradores.
+function imprimirIlustrador(ilustradores, impresiones) {
+  let contenedorIlustradores = document.getElementById(
+    "contenedor-ilustradores"
+  );
 
-};
+  for (const i in ilustradores) {
+    let ilustrador = document.createElement("li");
+    let contadorCantidad = 0;
+    for (const sticker of impresiones) {
+      if (ilustradores[i] == sticker.ilustrador) {
+        contadorCantidad++;
+      }
+    }
+    ilustrador.innerHTML = `<a href="#" id="ilustrador${ilustradores[
+      i
+    ]}"> ${ilustradores[i]} (${contadorCantidad})</a>`;
+    contenedorIlustradores.appendChild(ilustrador);
+    contadorCantidad = 0;
+    let buttonIlustrador = document.getElementById(
+      `ilustrador${ilustradores[i]}`
+    );
+    buttonIlustrador.addEventListener("click", () =>
+      filtrarIlustrador(ilustradores[i], impresiones)
+    );
+  }
+}
 
-function imprimirPrecios(){
+//-----Función imprimir Precios:
+//-------Esta me permite imprimir los rangos de precios, para luego poder filtrar.
+function imprimirPrecios() {
   let contenedorPrecios = document.getElementById("contenedor-precios");
-  let contador=0;
-  let contadorUno= 50;
+  //-----Hay dos contadores debido a que utilice rango de precios, es decir, stickers que valen de de 0 a 50, de 50 a 100 y así. Por eso hay uno que arranca en cero y el otro en 50.
+  let contador = 0;
+  let contadorUno = 50;
   for (let i = 0; i <= 4; i++) {
-    let precio = document.createElement("li");     
-        // if(i!=4){
-        //   precio.innerHTML =
-        // `<li><a href="#" id="${i}" >$${contador}.00 - $${contadorUno}.00</a></li>`
-        // }else{
-        //     precio.innerHTML =
-        //   `<a href="#" id="4">$250.00+</a>`      
-        // }
-        //Operadores avanzados
-        i!=4 ?   precio.innerHTML =
-        `<li><a href="#" id="${i}" >$${contador}.00 - $${contadorUno}.00</a></li>` :  precio.innerHTML =
-          `<a href="#" id="4">$250.00+</a>`   
-    contador+=50;
-    contadorUno+=50;
+    let precio = document.createElement("li");
+    //----Dejé esta parte comentada para la comparación con un operador avanzado.
+    // if(i!=4){
+    //   precio.innerHTML =
+    // `<li><a href="#" id="${i}" >$${contador}.00 - $${contadorUno}.00</a></li>`
+    // }else{
+    //     precio.innerHTML =
+    //   `<a href="#" id="4">$250.00+</a>`
+    // }
+    //Operadores avanzados
+    i != 4
+      ? (precio.innerHTML = `<li><a href="#" id="${i}" >$${contador}.00 - $${contadorUno}.00</a></li>`)
+      : (precio.innerHTML = `<a href="#" id="4">$250.00+</a>`);
+    contador += 50;
+    contadorUno += 50;
     contenedorPrecios.appendChild(precio);
     let buttonPrecio = document.getElementById(`${i}`);
-    buttonPrecio.addEventListener("click", () => filtrarPrecio(i,impresiones));
-  
+    buttonPrecio.addEventListener("click", () => filtrarPrecio(i, impresiones));
   }
-
 }
 
-
-
-
-
-
-function filtrarCategoria(categoria,impresiones){
-  const impresionesXCategoria = impresiones.filter(sticker => sticker.categoria == categoria);
+//-----Función filtrar por categoria:
+// Esta función me permite, al momento de hacer click sobre alguna categoría, imprimir solamente aquellos stickers que pertenezcan a esa categoría.
+function filtrarCategoria(categoria, impresiones) {
+  //-----Genero un nuevo array según categoría y luego invoco a la función que imprime los stickers y le envio este nuevo arrays.
+  const impresionesXCategoria = impresiones.filter(
+    sticker => sticker.categoria == categoria
+  );
   contenedor.innerHTML = "";
+  //-------Esto lo realizo para modificar la cantidad de total de stickers mostrados en la frase "Mostrando 1-12 de 20 resultados"
   totalStickers.innerHTML = impresionesXCategoria.length;
-  imprimirStickers(impresionesXCategoria)
-  impresionesXCategoria.length = 0;
+  imprimirStickers(impresionesXCategoria);
 }
 
-function filtrarIlustrador(ilustrador,impresiones){
-  const impresionesXIlustrador = impresiones.filter(sticker => sticker.ilustrador == ilustrador);
+//-----Función filtrar por ilustrador:
+//-----De la misma forma que con las categorías, lo realizo para los ilustradores.
+function filtrarIlustrador(ilustrador, impresiones) {
+  const impresionesXIlustrador = impresiones.filter(
+    sticker => sticker.ilustrador == ilustrador
+  );
   contenedor.innerHTML = "";
   totalStickers.innerHTML = impresionesXIlustrador.length;
-  imprimirStickers(impresionesXIlustrador)
-  impresionesXIlustrador.length = 0;
+  imprimirStickers(impresionesXIlustrador);
 }
 
-
-
-function filtrarPrecio(i, impresiones){
-  let impresionesXPrecio= [];
-  // console.log(i);
+//-----Función filtrar por precio:
+//--------Esta función me da la funciionalidad de imprimir según el rango de precios.
+function filtrarPrecio(i, impresiones) {
+  let impresionesXPrecio = [];
+  //------- La i, que la envio desde la función de imprimirPrecios, son los rangos de precios.
+  // 0: 0 a 50
+  // 1: 50 a 100
+  // 2: 100 a 150
+  // 3: 150 a 250
+  // 4: mas de 250
+  // Voy modificando el array creado anteriormente
   switch (i) {
     case 0:
-      impresionesXPrecio = impresiones.filter(sticker => sticker.precio>0 && sticker.precio<=50);      
+      impresionesXPrecio = impresiones.filter(
+        sticker => sticker.precio > 0 && sticker.precio <= 50
+      );
       break;
     case 1:
-      impresionesXPrecio = impresiones.filter(sticker => sticker.precio>50 && sticker.precio<=100);      
+      impresionesXPrecio = impresiones.filter(
+        sticker => sticker.precio > 50 && sticker.precio <= 100
+      );
       break;
     case 2:
-      impresionesXPrecio = impresiones.filter(sticker => sticker.precio>100 && sticker.precio<=150);      
-     break;
+      impresionesXPrecio = impresiones.filter(
+        sticker => sticker.precio > 100 && sticker.precio <= 150
+      );
+      break;
     case 3:
-      impresionesXPrecio = impresiones.filter(sticker => sticker.precio>150 && sticker.precio<=250);  
-     break;
-     case 4:
-      impresionesXPrecio = impresiones.filter(sticker => sticker.precio>250);      
-     break;
+      impresionesXPrecio = impresiones.filter(
+        sticker => sticker.precio > 150 && sticker.precio <= 250
+      );
+      break;
+    case 4:
+      impresionesXPrecio = impresiones.filter(sticker => sticker.precio > 250);
+      break;
     default:
       break;
   }
   contenedor.innerHTML = "";
   totalStickers.innerHTML = impresionesXPrecio.length;
+  //----Invoco a la función de imprimirStickers con este nuevo arrays creado.
   imprimirStickers(impresionesXPrecio);
-
- 
 }
 
+//-----Función Mostrar todos:
 
-
-
-
-for (let i = 0; i < mostrarTodos.length; i++) {  
-  mostrarTodos[i].addEventListener("click", () => imprimirStickers(impresiones));
+//Esta función se la coloco a todo aquel boton que tenga la clase mostrar-todos y por ende, diga "Mostrar todos" y lo que hace es volver a reimprimir todos los sticjers nuevamente.
+for (let i = 0; i < mostrarTodos.length; i++) {
+  mostrarTodos[i].addEventListener("click", () =>
+    imprimirStickers(impresiones)
+  );
 }
 
+//-------------Desarrollo de funciones fin
 
-imprimirStickersIndex(impresiones);
+//-------------Invocación de funciones inicio
 imprimirStickers(impresiones);
-imprimirCategorias(categorias,impresiones);
-imprimirIlustrador(ilustradores,impresiones);
+imprimirCategorias(categorias, impresiones);
+imprimirIlustrador(ilustradores, impresiones);
 imprimirPrecios();
-totalStickersS.innerHTML = impresiones.length;
-
+//-------------Invocación de funciones fin

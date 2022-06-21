@@ -2135,6 +2135,14 @@ ol {
 .continue__btn.update__btn a i {
   margin-right: 5px;
 }
+.continue__btn.update__btnDisabled {
+  text-align: right;
+}
+.continue__btn.update__btnDisabled a {
+  color: #bfbfbf;
+  background: grey;
+  border-color: grey;
+}
 .continue__btn a {
   color: #111111;
   font-size: 14px;
