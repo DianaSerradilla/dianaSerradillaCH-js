@@ -11,6 +11,7 @@ let mostrarTodos = document.getElementsByClassName("mostrar-todos");
 function imprimirStickers(impresiones) {
   //-----Comienzo seleccionando el contenedor en el cual voy a imprimir los stickers.
   let contenedor = document.getElementById("contenedor");
+
   //-----Esto me va a servir para imprimir el total de stickers en la frase "Mostrando 1-12 de 20 resultados"
   totalStickers.innerHTML = impresiones.length;
   //-----Inicializo el contedor vacio para que luego no se se sobre escriba con los filtros

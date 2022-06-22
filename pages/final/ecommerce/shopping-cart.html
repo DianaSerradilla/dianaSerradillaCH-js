@@ -211,10 +211,10 @@
                 <div class="col-lg-4">
                     <div class="cart__discount">
                         <h6>Codigo de descuento</h6>
-                        <form action="#">
-                            <input type="text" placeholder="Código cupon">
-                            <button type="submit">Aplicar</button>
-                        </form>
+                        <div>
+                            <input type="text" placeholder="Código cupon" id="input-cupon">
+                            <button type="submit" id="aplicar-cupon">Aplicar</button>
+                        </div>
                     </div>
                     <div class="cart__total">
                         <h6>Total carrito</h6>
@@ -222,7 +222,7 @@
                             <li>Cantidad <span> <span id="cantidad-checkout">0</span></span></li>
                             <li>Total <span>$ <span id="subtotal-checkout">0</span></span></li>
                         </ul>
-                        <a href="checkout.html" class="primary-btn">Pagar</a>
+                        <a href="#" class="primary-btn" id="pagar-carrito">Pagar</a>
                     </div>
                 </div>
             </div>

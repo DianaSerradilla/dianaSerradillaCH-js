@@ -15,6 +15,17 @@ const categorias = [
   "Peliculas"
 ];
 
+const cupones = [
+  "SKKINS-001", //0
+  "SKKINS-002", //1
+  "SKKINS-003", //2
+  "SKKINS-004", //3
+  "SKKINS-005", //4
+];
+
+
+
+
 const ilustradores = [
   "Anónimo",
   "Willian Santiago",
