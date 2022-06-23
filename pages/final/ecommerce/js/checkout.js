@@ -5,10 +5,11 @@ let contenedorBoton = document.getElementById("contenedor-limpiarCarrito");
 let carroJSON = JSON.parse(sessionStorage.getItem("carrito")) || [];
 let buttonLimpiarCarrito = document.getElementById("limpiar-carrito");
 let buttonPagar = document.getElementById("pagar-carrito");
-const inputCupon = document.getElementById("input-cupon");
+let inputCupon = document.getElementById("input-cupon");
 let buttonCupon = document.getElementById("aplicar-cupon");
 let precioTotal = sessionStorage.getItem("precioTotal");
-
+let descuentoStorage = JSON.parse(sessionStorage.getItem("descuento")) || 0;
+let cantidadDescuento = document.getElementById("cantidad-descuento");
 //-------------Declaraciones fin
 
 //-------------Desarrollo de funciones inicio
@@ -18,7 +19,7 @@ let precioTotal = sessionStorage.getItem("precioTotal");
 function imprimirCarrito(carroJSON) {
   let contenedorCarrito = document.getElementById("contenedor-carrito");
   contenedorCarrito.innerHTML = "";
-
+  //En caso de que el carrito esté vacío imprimira esta sección y en caso de que tenga conentido, completará la tabla
   if (carroJSON.length === 0) {
     let card = document.createElement("tr");
     card.innerHTML = `
@@ -51,6 +52,7 @@ function imprimirCarrito(carroJSON) {
     `;
 
       contenedorCarrito.appendChild(card);
+      //Aún no funcionan estos botones.
       let buttonLess = document.getElementById(`less${producto.id}`);
       let buttonMore = document.getElementById(`more${producto.id}`);
       buttonLess.addEventListener("click", () => quitar(producto.id));
@@ -58,17 +60,8 @@ function imprimirCarrito(carroJSON) {
   }
 }
 
-function quitar(productoID) {
-  for (const producto of carroJSON) {
-    if (producto.id == productoID) {
-      producto.cantidadTotalC--;
-    }
-  }
-}
 
-// function actualizarItems(carroJSON) {
-//   obtenerPrecioyCantidadTotal(carroJSON);
-// }
+
 
 //------------Función limpiar carrito
 //--------- Esta función permite que al momento de hacer click sobre limpiar carrito se borre todo del storage como también del DOM y el botón quede con estilos deshabilitados.
@@ -77,14 +70,21 @@ function limpiarCarrito() {
   sessionStorage.removeItem("carrito");
   sessionStorage.removeItem("cantidadTotal");
   sessionStorage.removeItem("precioTotal");
+  sessionStorage.removeItem("descuento");
+  // sessionStorage.setItem("carrito", []);
+  // sessionStorage.setItem("cantidadTotal", 0);
+  // sessionStorage.setItem("precioTotal", 0);
+  // sessionStorage.setItem("descuento", 0);
   carroJSON = [];
-  //---------Remuevo del DOM
+  //---------Actualizo el DOM
   cantidadButton.innerHTML = 0;
   subtotalButton.innerHTML = 0;
   precioTCarrito.innerHTML = 0;
   precioTCarritoMobile.innerHTML = 0;
   cantidadTCarrito.innerHTML = 0;
   cantidadTCarritoMobile.innerHTML = 0;
+  cantidadDescuento.innerHTML = 0;
+  // actualizarItems();
   //---------Cambio estilos al boton
   contenedorBoton.className = "continue__btn update__btnDisabled";
   buttonPagar.className = "primary-btnDisabled"
@@ -94,34 +94,12 @@ function limpiarCarrito() {
 }
 
 
+// Esta funcion me permite aplicar el descuento o no el descuento
 function aplicarDescuento(cupones, valorInput, precioTotal) {
-  const disponibilidadCupon = cupones.indexOf(valorInput.toUpperCase())
-  if (disponibilidadCupon != -1) {
-    let descuento;
-    let nuevoValor;
-    console.log(precioTotal)
-    switch (disponibilidadCupon) {
-      case 0:
-      case 1:
-        descuento = 0.1;
-        nuevoValor = precioTotal * descuento;
-        sessionStorage.setItem("precioTotal", nuevoValor);
-
-        break;
-      case 2:
-      case 3:
-        descuento = 0.2;
-        break;
-      case 4:
-        descuento = 0.5;
-        break;
-      default:
-        break;
-
-    }
-  } else {
+  //---- Primero verifica si el cupon esta vacio
+  if (inputCupon.value == "") {
     Toastify({
-      text: `El cupón no es válido.`,
+      text: `El cupón está vacío, ingrese uno válido`,
       duration: 3000,
       close: false,
       gravity: "top", // `top` or `bottom`
@@ -132,31 +110,149 @@ function aplicarDescuento(cupones, valorInput, precioTotal) {
       },
       onClick: function () { } // Callback after click
     }).showToast();
+  } else {
+    //--------En caso de que no este vaciom procede a verificar si anteriormente ya cargo un cupon, en caso de tener uno cargado, le avisa que ya no puede realizar mas decuentos.
+    if (descuentoStorage != 0) {
+      Toastify({
+        text: `Ya ha aplicado un descuento.`,
+        duration: 3000,
+        close: false,
+        gravity: "top", // `top` or `bottom`
+        position: "left", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: "linear-gradient(to right, #BF0426,#8C031C)"
+        },
+        onClick: function () { } // Callback after click
+      }).showToast();
+    } else {
+      // En caso de que no haya cargado, proceso a realizar el descuento
+      // Comienzo ubicando la posicion del descuento en el arrays y lo guardo
+      const disponibilidadCupon = cupones.indexOf(valorInput.toUpperCase())
+      // En caso de que sea -1 significa que esta en el arrays
+      if (disponibilidadCupon != -1) {
+        let descuento;
+        let nuevoValor;
+        // console.log(precioTotal)
+        switch (disponibilidadCupon) {
+          // Para los dos primeros valores le aplico el 10% de descuento
+          case 0:
+          case 1:
+            descuento = (precioTotal * 0.1);
+            nuevoValor = precioTotal - descuento;
+            sessionStorage.setItem("precioTotal", nuevoValor);
+            Toastify({
+              text: `El descuento se ha aplicado correctamente.`,
+              duration: 3000,
+              close: false,
+              gravity: "top", // `top` or `bottom`
+              position: "left", // `left`, `center` or `right`
+              stopOnFocus: true, // Prevents dismissing of toast on hover
+              style: {
+                background: "linear-gradient(to right, #007566, #8FC1B5)"
+              },
+              onClick: function () { } // Callback after click
+            }).showToast();
+            break;
+          // Para los dos segundos valores le aplico el 20% de descuento
+
+          case 2:
+          case 3:
+            descuento = (precioTotal * 0.2);
+            nuevoValor = precioTotal - descuento;
+            sessionStorage.setItem("precioTotal", nuevoValor);
+            Toastify({
+              text: `El descuento se ha aplicado correctamente.`,
+              duration: 3000,
+              close: false,
+              gravity: "top", // `top` or `bottom`
+              position: "left", // `left`, `center` or `right`
+              stopOnFocus: true, // Prevents dismissing of toast on hover
+              style: {
+                background: "linear-gradient(to right, #007566, #8FC1B5)"
+              },
+              onClick: function () { } // Callback after click
+            }).showToast();
+            break;
+          case 4:
+            // Para el ultimo valor le aplico el 50% de descuento
+
+            descuento = (precioTotal * 0.1);
+            nuevoValor = precioTotal - descuento;
+            sessionStorage.setItem("precioTotal", nuevoValor);
+            Toastify({
+              text: `El descuento se ha aplicado correctamente.`,
+              duration: 3000,
+              close: false,
+              gravity: "top", // `top` or `bottom`
+              position: "left", // `left`, `center` or `right`
+              stopOnFocus: true, // Prevents dismissing of toast on hover
+              style: {
+                background: "linear-gradient(to right, #007566, #8FC1B5)"
+              },
+              onClick: function () { } // Callback after click
+            }).showToast();
+            break;
+          default:
+            break;
+
+        }
+        // Guardo del descuento el storage para luego reutilzarlo, en este caso lo imprimo en el DOM
+        sessionStorage.setItem("descuento", descuento);
+        descuentoStorage = JSON.parse(sessionStorage.getItem("descuento"));
+        cantidadDescuento.innerHTML = descuentoStorage;
+        actualizarItems();
+
+
+      } else {
+        // En caso de que sea -1 significa que no existe ese cupon en el arrays
+        Toastify({
+          text: `El cupón no es válido.`,
+          duration: 3000,
+          close: false,
+          gravity: "top", // `top` or `bottom`
+          position: "left", // `left`, `center` or `right`
+          stopOnFocus: true, // Prevents dismissing of toast on hover
+          style: {
+            background: "linear-gradient(to right, #BF0426,#8C031C)"
+          },
+          onClick: function () { } // Callback after click
+        }).showToast();
+      }
+
+    }
   }
 
 }
 
 
-function imprimirCheckout() {
-
-}
+//------------Esta fucion me permite pagar, primero verificarara si ya he cargado algun cupon, en caso de no haber cargado, le consultara si quiere cargar. En caso de que si haya cargado, le avisara que no se puede cargar
 function pagar() {
-  Swal.fire({
-    title: '¿Tienes algún cupón?',
-    showDenyButton: true,
-    confirmButtonText: 'Si',
-    denyButtonText: `No`,
-  }).then((result) => {
-    /* Read more about isConfirmed, isDenied below */
-    if (result.isConfirmed) {
-      Swal.fire('Vuelve atrás,colócalo y tendrás un descuento', '',)
-    } else if (result.isDenied) {
-      Swal.fire('Recibimos tu pago, nos pondremos en contacto contigo', '', 'success')
-      limpiarCarrito();
-    }
-  })
+
+  if (descuentoStorage == 0) {
+    Swal.fire({
+      title: '¿Tienes algún cupón?',
+      showDenyButton: true,
+      confirmButtonText: 'Si',
+      denyButtonText: `No`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        Swal.fire('Vuelve atrás,colócalo y tendrás un descuento', '',)
+      } else if (result.isDenied) {
+        Swal.fire('Recibimos tu pago, nos pondremos en contacto contigo', '', 'success')
+        limpiarCarrito();
+      }
+    })
+  } else {
+    Swal.fire('Recibimos tu pago, nos pondremos en contacto contigo', '', 'success')
+    limpiarCarrito();
+  }
+
 }
 
+
+//------ Esta funcion me permite avisar que el carrito esta vacio, si bien es una funcion sencilla, es muy repetitiva.
 function avisoCarritoVacio() {
   Toastify({
     text: `El carrito está vacío`,
@@ -172,10 +268,19 @@ function avisoCarritoVacio() {
   }).showToast();
 }
 
+
+//----------Esta funcion me permite actualizar las impresiones del DOM, similiar a la funcion anterior, es sencilla pero muy repetitiva. 
+function actualizarItems() {
+  cantidadButton.innerHTML = sessionStorage.getItem("cantidadTotal");
+  subtotalButton.innerHTML = sessionStorage.getItem("precioTotal");
+  precioTCarrito.innerHTML = sessionStorage.getItem("precioTotal");
+  precioTCarritoMobile.innerHTML = sessionStorage.getItem("precioTotal");
+  cantidadTCarrito.innerHTML = sessionStorage.getItem("cantidadTotal");
+  cantidadTCarritoMobile.innerHTML = sessionStorage.getItem("cantidadTotal");
+  cantidadDescuento.innerHTML = sessionStorage.getItem("descuento");
+}
 //-------------Desarrollo de funciones fin
 
-cantidadButton.innerHTML = JSON.parse(sessionStorage.getItem("cantidadTotal"));
-subtotalButton.innerHTML = JSON.parse(sessionStorage.getItem("precioTotal"));
 
 //-------------Invocación de funciones inicio
 
@@ -183,9 +288,7 @@ imprimirCarrito(carroJSON);
 //Esto primero verifica en que condición se encuentra el carrito para, que en caso que esté vació no realizar nada y solamente dar un aviso. En caso de que el carrito tenga elemento, si invoca a la función.
 buttonLimpiarCarrito.addEventListener("click", () => {
   if (carroJSON.length === 0) {
-
     avisoCarritoVacio();
-
   } else {
     limpiarCarrito();
   }
@@ -194,7 +297,6 @@ buttonLimpiarCarrito.addEventListener("click", () => {
 
 buttonPagar.addEventListener("click", () => {
   if (carroJSON.length === 0) {
-
     avisoCarritoVacio();
   } else {
     pagar();
@@ -202,36 +304,28 @@ buttonPagar.addEventListener("click", () => {
 });
 
 
+
 buttonCupon.addEventListener("click", () => {
+
   if (carroJSON.length === 0) {
     avisoCarritoVacio();
   } else {
-    if (inputCupon.value == "") {
-      Toastify({
-        text: `El cupón está vacío, ingrese uno válido`,
-        duration: 3000,
-        close: false,
-        gravity: "top", // `top` or `bottom`
-        position: "left", // `left`, `center` or `right`
-        stopOnFocus: true, // Prevents dismissing of toast on hover
-        style: {
-          background: "linear-gradient(to right, #BF0426,#8C031C)"
-        },
-        onClick: function () { } // Callback after click
-      }).showToast();
-    } else {
-
-      aplicarDescuento(cupones, inputCupon.value, precioTotal);
-    }
+    aplicarDescuento(cupones, inputCupon.value, precioTotal);
   }
+  inputCupon.placeholder = 'Código cupon';
+  inputCupon.value = "";
 })
 
 
+//---------Esto me permite inicializar, si es que el carrito esta vacio, los estilos d los botones. 
 if (carroJSON.length === 0) {
   contenedorBoton.className = "continue__btn update__btnDisabled";
   buttonPagar.className = "primary-btnDisabled"
   buttonCupon.className = "button-disabled";
-  cantidadButton.innerHTML = 0;
-  subtotalButton.innerHTML = 0;
 }
+
+cantidadDescuento.innerHTML = descuentoStorage;
+cantidadButton.innerHTML = JSON.parse(sessionStorage.getItem("cantidadTotal"));
+subtotalButton.innerHTML = JSON.parse(sessionStorage.getItem("precioTotal"));
+
 //-------------Invocación de funciones fin

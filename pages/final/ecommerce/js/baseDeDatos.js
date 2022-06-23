@@ -23,9 +23,6 @@ const cupones = [
   "SKKINS-005", //4
 ];
 
-
-
-
 const ilustradores = [
   "Anónimo",
   "Willian Santiago",
