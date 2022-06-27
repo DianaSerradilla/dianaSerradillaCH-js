@@ -10,6 +10,11 @@ let buttonCupon = document.getElementById("aplicar-cupon");
 let precioTotal = sessionStorage.getItem("precioTotal");
 let descuentoStorage = JSON.parse(sessionStorage.getItem("descuento")) || 0;
 let cantidadDescuento = document.getElementById("cantidad-descuento");
+let dolar, real;
+let currency = document.getElementsByClassName("currency");
+let divisa = document.getElementById("divisa");
+
+
 //-------------Declaraciones fin
 
 //-------------Desarrollo de funciones inicio
@@ -48,18 +53,53 @@ function imprimirCarrito(carroJSON) {
                                         </div>
                                     </td>
                                     <td class="cart__price">$ ${producto.precioTotalC}</td>
-                                    <td class="cart__close"><i class="fa fa-close"></i></td>
+                                    <td class="cart__close" id="detele-button"><i class="fa fa-close"></i></td>
     `;
 
       contenedorCarrito.appendChild(card);
       //Aún no funcionan estos botones.
       let buttonLess = document.getElementById(`less${producto.id}`);
       let buttonMore = document.getElementById(`more${producto.id}`);
-      buttonLess.addEventListener("click", () => quitar(producto.id));
+      let deleteButton = document.getElementById("detele-button");
+      deleteButton.addEventListener("click", () => quitarSticker());
+      buttonLess.addEventListener("click", () => quitarUnidadCarrito(producto.id, carrito));
+      buttonMore.addEventListener("click", () => agregarUnidadCarrito(producto.id, carrito));
     }
   }
 }
 
+
+
+function agregarUnidadCarrito(stickerID, carrito) {
+  console.log("entro");
+  console.table(carrito);
+  for (const sticker of carrito) {
+    if (sticker.id == stickerID) {
+      sticker.cantidadTotalC++;
+    }
+  }
+  console.table(carrito);
+
+}
+
+function quitarUnidadCarrito(stickerID, carrito) {
+  console.log("entro");
+  console.table(carrito);
+  for (const sticker of carrito) {
+    if (sticker.id == stickerID) {
+      sticker.cantidadTotalC--;
+    }
+  }
+  console.table(carrito);
+
+}
+
+function quitarSticker(stickerID) {
+  let carrito = JSON.parse(sessionStorage.getItem("carrito"));
+  let indice = carrito.findIndex(sticker => sticker.id == stickerID);
+  carrito.splice(indice, 1);
+  imprimirCarrito(carrito);
+}
 
 
 
@@ -84,6 +124,7 @@ function limpiarCarrito() {
   cantidadTCarrito.innerHTML = 0;
   cantidadTCarritoMobile.innerHTML = 0;
   cantidadDescuento.innerHTML = 0;
+  divisa.innerHTML = `Divisa<span>$<span id="subtotal-divisa">0</span></span>`
   // actualizarItems();
   //---------Cambio estilos al boton
   contenedorBoton.className = "continue__btn update__btnDisabled";
@@ -279,11 +320,60 @@ function actualizarItems() {
   cantidadTCarritoMobile.innerHTML = sessionStorage.getItem("cantidadTotal");
   cantidadDescuento.innerHTML = sessionStorage.getItem("descuento");
 }
+
+
+async function obtenerDolar() {
+  const URLUSD = "https://api-dolar-argentina.herokuapp.com/api/bbva";
+  const resp = await fetch(URLUSD);
+  const data = await resp.json();
+  let dolar = parseInt(data.venta);
+  let nuevoValor = Math.ceil(sessionStorage.getItem("precioTotal") / dolar);
+  divisa.innerHTML = `USD<span>$<span id="subtotal-divisa">${nuevoValor}</span></span>`
+
+}
+
+async function obtenerReal() {
+  const URLREAL = "https://api-dolar-argentina.herokuapp.com/api/real/bbva";
+  const resp = await fetch(URLREAL);
+  const data = await resp.json();
+  let real = parseInt(data.venta);
+  let nuevoValor = Math.ceil(sessionStorage.getItem("precioTotal") / real);
+  divisa.innerHTML = `BRL<span>$<span id="subtotal-divisa">${nuevoValor}</span></span>`
+}
+
+
+function cotizacion(selector) {
+
+  switch (selector) {
+    case 0:
+      divisa.innerHTML = `USD<span><span id="subtotal-divisa">Cargando cotización..</span></span>`
+      setTimeout(obtenerDolar, 2000);
+      break;
+    case 1:
+      divisa.innerHTML = `USD<span><span id="subtotal-divisa">Cargando cotización..</span></span>`
+      setTimeout(obtenerReal, 2000);
+
+      break;
+  }
+  buttonPagar.innerText = "PAGAR";
+
+}
+
+
 //-------------Desarrollo de funciones fin
 
 
 //-------------Invocación de funciones inicio
 
+for (let i = 0; i < currency.length; i++) {
+  currency[i].addEventListener("click", () => {
+    // console.log(i);
+    buttonPagar.innerText = "Cargando cotización...";
+
+    cotizacion(i)
+  })
+
+}
 imprimirCarrito(carroJSON);
 //Esto primero verifica en que condición se encuentra el carrito para, que en caso que esté vació no realizar nada y solamente dar un aviso. En caso de que el carrito tenga elemento, si invoca a la función.
 buttonLimpiarCarrito.addEventListener("click", () => {

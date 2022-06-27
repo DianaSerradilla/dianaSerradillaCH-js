@@ -2,6 +2,8 @@
 let totalStickers = document.getElementById("total-stickers");
 let totalStickersS = document.getElementById("total-stickersS");
 let mostrarTodos = document.getElementsByClassName("mostrar-todos");
+
+
 //--------------------------Declaraciones Fin
 
 //-------------Desarrollo de funciones inicio
@@ -211,6 +213,9 @@ for (let i = 0; i < mostrarTodos.length; i++) {
   );
 }
 
+
+
+
 //-------------Desarrollo de funciones fin
 
 //-------------Invocación de funciones inicio
@@ -218,4 +223,5 @@ imprimirStickers(impresiones);
 imprimirCategorias(categorias, impresiones);
 imprimirIlustrador(ilustradores, impresiones);
 imprimirPrecios();
+
 //-------------Invocación de funciones fin

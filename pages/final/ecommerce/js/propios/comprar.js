@@ -22,13 +22,14 @@ class Sticker {
 
   quitarrUnidadCarrito() {
     this.cantidadTotalC--;
-    console.log("entro");
   }
 
   actualizarPrecioTotalCarrito() {
     this.precioTotalC = this.precio * this.cantidadTotalC;
   }
 }
+
+
 
 //-----------Guardo en el Storage el carrito o en caso de no haber nada, me entregaría un array vacio
 let carrito = JSON.parse(sessionStorage.getItem("carrito")) || [];
@@ -50,6 +51,8 @@ let precioTotalREDUCE = JSON.parse(sessionStorage.getItem("precioTotal")) || 0;
 //--------------------------Declaraciones Fin
 
 //-------------Desarrollo de funciones inicio
+
+
 
 //-----Con esta función me permite agregar al carrito el sticker seleccionado.
 function comprar(stickerID) {
@@ -79,7 +82,7 @@ function comprar(stickerID) {
           style: {
             background: "linear-gradient(to right, #007566, #8FC1B5)"
           },
-          onClick: function() {} // Callback after click
+          onClick: function () { } // Callback after click
         }).showToast();
       } else {
         //En el caso de que no exista en el carrito, simple procedemos a crear este objeto nuevo con la clase de Sticker y pushearlo al carrito.
@@ -95,7 +98,7 @@ function comprar(stickerID) {
           style: {
             background: "linear-gradient(to right, #007566, #8FC1B5)"
           },
-          onClick: function() {} // Callback after click
+          onClick: function () { } // Callback after click
         }).showToast();
       }
     }
@@ -113,11 +116,11 @@ function obtenerPrecioyCantidadTotal() {
 
   //------------ Esto me permite saber la cantidad de stickers comprados.
   //-------- Primero realizo un array solamente con las cantidades (cantidadTotalC)
-  let cantidadStickersMAP = carroJSON.map(function(cantidad) {
+  let cantidadStickersMAP = carroJSON.map(function (cantidad) {
     return cantidad.cantidadTotalC;
   });
   //---------- Luego, con este array creado y con la función reduce, sumo todos los valores.
-  cantidadStickersREDUCE = cantidadStickersMAP.reduce(function(
+  cantidadStickersREDUCE = cantidadStickersMAP.reduce(function (
     valorAnterior,
     valorActual
   ) {
@@ -127,11 +130,11 @@ function obtenerPrecioyCantidadTotal() {
   //------------ Esto me permite saber el precio total monetario de stickers comprados.
   //----- De la misma forma, trabajo con el precio total.
 
-  let precioTotalMAP = carroJSON.map(function(cantidad) {
+  let precioTotalMAP = carroJSON.map(function (cantidad) {
     return cantidad.precioTotalC;
   });
 
-  precioTotalREDUCE = precioTotalMAP.reduce(function(
+  precioTotalREDUCE = precioTotalMAP.reduce(function (
     valorAnterior,
     valorActual
   ) {
