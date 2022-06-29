@@ -16,23 +16,23 @@ class Sticker {
     this.precioTotalC = sticker.precio;
   }
 
-  agregarUnidadCarrito() {
-    this.cantidadTotalC++;
-  }
+  // agregarUnidadCarrito() {
+  //   this.cantidadTotalC++;
+  // }
 
-  quitarrUnidadCarrito() {
-    this.cantidadTotalC--;
-  }
+  // quitarrUnidadCarrito() {
+  //   this.cantidadTotalC--;
+  // }
 
-  actualizarPrecioTotalCarrito() {
-    this.precioTotalC = this.precio * this.cantidadTotalC;
-  }
+  // actualizarPrecioTotalCarrito() {
+  //   this.precioTotalC = this.precio * this.cantidadTotalC;
+  // }
 }
 
 
 
 //-----------Guardo en el Storage el carrito o en caso de no haber nada, me entregaría un array vacio
-let carrito = JSON.parse(sessionStorage.getItem("carrito")) || [];
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 // let carrito = [];
 //------En todas las pestañas tenemos un carrito que indica la cantidad de stickers y el total del carrito, también lo tenemos en el menu responsive, por eso hay dos variables que tienen el nombre Mobile.
 let cantidadTCarrito = document.getElementById("carrito-totalCantidad");
@@ -46,12 +46,29 @@ let precioTCarritoMobile = document.getElementById(
 //-----------Guardo en el Storage estas variables  o en caso de no haber nada, lo inicializaría en cero
 
 let cantidadStickersREDUCE =
-  JSON.parse(sessionStorage.getItem("cantidadTotal")) || 0;
-let precioTotalREDUCE = JSON.parse(sessionStorage.getItem("precioTotal")) || 0;
+  JSON.parse(localStorage.getItem("cantidadTotal")) || 0;
+let precioTotalREDUCE = JSON.parse(localStorage.getItem("precioTotal")) || 0;
 //--------------------------Declaraciones Fin
 
 //-------------Desarrollo de funciones inicio
 
+function agregarUnidadCarrito(stickerID, carrito) {
+  for (const sticker of carrito) {
+    if (sticker.id == stickerID) {
+      sticker.cantidadTotalC++;
+    }
+  }
+}
+
+
+
+function actualizarPrecioTotalCarrito(stickerID, carrito) {
+  for (const sticker of carrito) {
+    if (sticker.id == stickerID) {
+      sticker.precioTotalC = sticker.precio * sticker.cantidadTotalC;
+    }
+  }
+}
 
 
 //-----Con esta función me permite agregar al carrito el sticker seleccionado.
@@ -68,8 +85,10 @@ function comprar(stickerID) {
           elemento => elemento.id === stickerEnCarrito.id
         );
         // Luego de localizar su posición, nos paramos sobre ella y trabajamos con estas dos funciones, agrego una unidad y actualizo su precio final
-        carrito[index].agregarUnidadCarrito();
-        carrito[index].actualizarPrecioTotalCarrito();
+        // carrito[index].agregarUnidadCarrito();
+        agregarUnidadCarrito(stickerID, carrito)
+        // carrito[index].actualizarPrecioTotalCarrito();
+        actualizarPrecioTotalCarrito(stickerID, carrito)
         // En este caso, como ya existe, el mensaje de Toastify será que se agregó nuevamente
         Toastify({
           text: `Has añadido nuevamente ${impresiones[stickerID]
@@ -111,7 +130,7 @@ function comprar(stickerID) {
 function obtenerPrecioyCantidadTotal() {
   //------------   Creo el carrito y lo guardo en el storage, lo guardo como objeto.
   let carritoJSON = JSON.stringify(carrito);
-  sessionStorage.setItem("carrito", carritoJSON);
+  localStorage.setItem("carrito", carritoJSON);
   const carroJSON = JSON.parse(carritoJSON);
 
   //------------ Esto me permite saber la cantidad de stickers comprados.
@@ -142,8 +161,8 @@ function obtenerPrecioyCantidadTotal() {
   });
 
   //--------Luego lo guardo en el storage
-  sessionStorage.setItem("cantidadTotal", cantidadStickersREDUCE);
-  sessionStorage.setItem("precioTotal", precioTotalREDUCE);
+  localStorage.setItem("cantidadTotal", cantidadStickersREDUCE);
+  localStorage.setItem("precioTotal", precioTotalREDUCE);
   //------ Lo imprimo en el DOM
   precioTCarrito.innerHTML = precioTotalREDUCE;
   precioTCarritoMobile.innerHTML = precioTotalREDUCE;

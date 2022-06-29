@@ -1,6 +1,17 @@
 /*---------------------
   Shopping Cart
 -----------------------*/
+
+.display-none{
+  opacity: 0;
+  position: absolute;
+}
+
+.display{
+  opacity: 1;
+  position: static;
+
+}
 .shopping__cart__table {
   margin-bottom: 30px;
 
@@ -206,6 +217,7 @@
 }
 
 .cart__total {
+  margin-top: 1rem;
   background: #f3f2ee;
   padding: 35px 40px 40px;
 

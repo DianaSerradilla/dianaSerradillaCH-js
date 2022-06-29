@@ -2,18 +2,18 @@
 let subtotalButton = document.getElementById("subtotal-checkout");
 let cantidadButton = document.getElementById("cantidad-checkout");
 let contenedorBoton = document.getElementById("contenedor-limpiarCarrito");
-let carroJSON = JSON.parse(sessionStorage.getItem("carrito")) || [];
+let carroJSON = JSON.parse(localStorage.getItem("carrito")) || [];
 let buttonLimpiarCarrito = document.getElementById("limpiar-carrito");
 let buttonPagar = document.getElementById("pagar-carrito");
 let inputCupon = document.getElementById("input-cupon");
 let buttonCupon = document.getElementById("aplicar-cupon");
-let precioTotal = sessionStorage.getItem("precioTotal");
-let descuentoStorage = JSON.parse(sessionStorage.getItem("descuento")) || 0;
+let precioTotal = localStorage.getItem("precioTotal");
+let descuentoStorage = JSON.parse(localStorage.getItem("descuento")) || 0;
 let cantidadDescuento = document.getElementById("cantidad-descuento");
 let dolar, real;
 let currency = document.getElementsByClassName("currency");
 let divisa = document.getElementById("divisa");
-
+let contenedorDescuento = document.getElementById("contenedor-descuento");
 
 //-------------Declaraciones fin
 
@@ -47,21 +47,24 @@ function imprimirCarrito(carroJSON) {
                                         <div class="quantity">
                                             <div class="pro-qty-2">
                                             <span class="fa fa-angle-left dec qtybtn" id="less${producto.id}"></span>
-                                            <input type="text" value="${producto.cantidadTotalC}">
+                                            <input type="text" id="cantidadTotal-input" value="${producto.cantidadTotalC}">
                                             <span class="fa fa-angle-right inc qtybtn" id="more${producto.id}"></span>
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="cart__price">$ ${producto.precioTotalC}</td>
-                                    <td class="cart__close" id="detele-button"><i class="fa fa-close"></i></td>
+                                    <td class="cart__price"  id="precioTotal-input">$ ${producto.precioTotalC}</td>
+                                    <td class="cart__close" id="detele-button${producto.id}"><i class="fa fa-close"></i></td>
     `;
 
       contenedorCarrito.appendChild(card);
       //Aún no funcionan estos botones.
       let buttonLess = document.getElementById(`less${producto.id}`);
       let buttonMore = document.getElementById(`more${producto.id}`);
-      let deleteButton = document.getElementById("detele-button");
-      deleteButton.addEventListener("click", () => quitarSticker());
+      // let inputTotalTable = getElementById("cantidadTotal-input");
+      // let precioTotalTable = getElementById("precioTotal-input");
+
+      let deleteButton = document.getElementById(`detele-button${producto.id}`);
+      deleteButton.addEventListener("click", () => quitarSticker(producto.id, carrito));
       buttonLess.addEventListener("click", () => quitarUnidadCarrito(producto.id, carrito));
       buttonMore.addEventListener("click", () => agregarUnidadCarrito(producto.id, carrito));
     }
@@ -71,50 +74,142 @@ function imprimirCarrito(carroJSON) {
 
 
 function agregarUnidadCarrito(stickerID, carrito) {
-  console.log("entro");
-  console.table(carrito);
+
   for (const sticker of carrito) {
     if (sticker.id == stickerID) {
       sticker.cantidadTotalC++;
+      Toastify({
+        text: `Has añadido una unidad de ${sticker.nombre} al carrito`,
+        duration: 3000,
+        close: false,
+        gravity: "top", // `top` or `bottom`
+        position: "left", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: "linear-gradient(to right, #007566, #8FC1B5)"
+        },
+        onClick: function () { } // Callback after click
+      }).showToast();
     }
   }
-  console.table(carrito);
+
+  actualizarCarrito(carrito)
+  actualizarPrecioTotalCarrito(stickerID, carrito);
+  obtenerPrecioyCantidadTotal()
+  actualizarItems();
+  imprimirCarrito(carrito);
+
 
 }
 
 function quitarUnidadCarrito(stickerID, carrito) {
-  console.log("entro");
-  console.table(carrito);
+
   for (const sticker of carrito) {
     if (sticker.id == stickerID) {
-      sticker.cantidadTotalC--;
+      if (sticker.cantidadTotalC == 1) {
+        quitarSticker(sticker.id, carrito);
+      } else {
+        sticker.cantidadTotalC--;
+        Toastify({
+          text: `Has quitado una unidad de ${sticker.nombre} del carrito.`,
+          duration: 3000,
+          close: false,
+          gravity: "top", // `top` or `bottom`
+          position: "left", // `left`, `center` or `right`
+          stopOnFocus: true, // Prevents dismissing of toast on hover
+          style: {
+            background: "linear-gradient(to right, #BF0426,#8C031C)"
+          },
+          onClick: function () { } // Callback after click
+        }).showToast();
+
+      }
     }
   }
-  console.table(carrito);
 
-}
-
-function quitarSticker(stickerID) {
-  let carrito = JSON.parse(sessionStorage.getItem("carrito"));
-  let indice = carrito.findIndex(sticker => sticker.id == stickerID);
-  carrito.splice(indice, 1);
+  actualizarCarrito(carrito)
+  actualizarPrecioTotalCarrito(stickerID, carrito);
+  obtenerPrecioyCantidadTotal()
+  actualizarItems();
   imprimirCarrito(carrito);
+
+}
+
+function quitarSticker(stickerID, carrito) {
+  console.log(carrito.length);
+  if (carrito.length == 1) {
+    limpiarCarrito();
+
+    Toastify({
+      text: `El carrito está vacío`,
+      duration: 3000,
+      close: false,
+      gravity: "top", // `top` or `bottom`
+      position: "left", // `left`, `center` or `right`
+      stopOnFocus: true, // Prevents dismissing of toast on hover
+      style: {
+        background: "linear-gradient(to right, #BF0426,#8C031C)"
+      },
+      onClick: function () { } // Callback after click
+    }).showToast();
+  }
+  if (carrito.length >= 2) {
+    Toastify({
+      text: `Has quitado el sticker del carrito.`,
+      duration: 3000,
+      close: false,
+      gravity: "top", // `top` or `bottom`
+      position: "left", // `left`, `center` or `right`
+      stopOnFocus: true, // Prevents dismissing of toast on hover
+      style: {
+        background: "linear-gradient(to right, #BF0426,#8C031C)"
+      },
+      onClick: function () { } // Callback after click
+    }).showToast();
+    console.table(carrito);
+    let indice = carrito.findIndex(sticker => sticker.id == stickerID);
+    carrito.splice(indice, 1);
+    actualizarCarrito(carrito)
+    actualizarPrecioTotalCarrito(stickerID, carrito);
+    obtenerPrecioyCantidadTotal()
+    actualizarItems();
+    imprimirCarrito(carrito);
+  }
+
+
+
 }
 
 
+function actualizarCarrito(carrito) {
+
+  let carritoJSON = JSON.stringify(carrito);
+  localStorage.setItem("carrito", carritoJSON);
+  const carroJSON = JSON.parse(carritoJSON);
+
+}
+
+function actualizarPrecioTotalCarrito(stickerID, carrito) {
+
+  for (const sticker of carrito) {
+    if (sticker.id == stickerID) {
+      sticker.precioTotalC = sticker.precio * sticker.cantidadTotalC;
+    }
+  }
+}
 
 //------------Función limpiar carrito
 //--------- Esta función permite que al momento de hacer click sobre limpiar carrito se borre todo del storage como también del DOM y el botón quede con estilos deshabilitados.
 function limpiarCarrito() {
   //---------Remuevo del storage
-  sessionStorage.removeItem("carrito");
-  sessionStorage.removeItem("cantidadTotal");
-  sessionStorage.removeItem("precioTotal");
-  sessionStorage.removeItem("descuento");
-  // sessionStorage.setItem("carrito", []);
-  // sessionStorage.setItem("cantidadTotal", 0);
-  // sessionStorage.setItem("precioTotal", 0);
-  // sessionStorage.setItem("descuento", 0);
+  localStorage.removeItem("carrito");
+  localStorage.removeItem("cantidadTotal");
+  localStorage.removeItem("precioTotal");
+  localStorage.removeItem("descuento");
+  // localStorage.setItem("carrito", []);
+  // localStorage.setItem("cantidadTotal", 0);
+  // localStorage.setItem("precioTotal", 0);
+  // localStorage.setItem("descuento", 0);
   carroJSON = [];
   //---------Actualizo el DOM
   cantidadButton.innerHTML = 0;
@@ -137,6 +232,8 @@ function limpiarCarrito() {
 
 // Esta funcion me permite aplicar el descuento o no el descuento
 function aplicarDescuento(cupones, valorInput, precioTotal) {
+
+
   //---- Primero verifica si el cupon esta vacio
   if (inputCupon.value == "") {
     Toastify({
@@ -181,7 +278,7 @@ function aplicarDescuento(cupones, valorInput, precioTotal) {
           case 1:
             descuento = (precioTotal * 0.1);
             nuevoValor = precioTotal - descuento;
-            sessionStorage.setItem("precioTotal", nuevoValor);
+            localStorage.setItem("precioTotal", nuevoValor);
             Toastify({
               text: `El descuento se ha aplicado correctamente.`,
               duration: 3000,
@@ -201,7 +298,7 @@ function aplicarDescuento(cupones, valorInput, precioTotal) {
           case 3:
             descuento = (precioTotal * 0.2);
             nuevoValor = precioTotal - descuento;
-            sessionStorage.setItem("precioTotal", nuevoValor);
+            localStorage.setItem("precioTotal", nuevoValor);
             Toastify({
               text: `El descuento se ha aplicado correctamente.`,
               duration: 3000,
@@ -220,7 +317,7 @@ function aplicarDescuento(cupones, valorInput, precioTotal) {
 
             descuento = (precioTotal * 0.1);
             nuevoValor = precioTotal - descuento;
-            sessionStorage.setItem("precioTotal", nuevoValor);
+            localStorage.setItem("precioTotal", nuevoValor);
             Toastify({
               text: `El descuento se ha aplicado correctamente.`,
               duration: 3000,
@@ -239,11 +336,10 @@ function aplicarDescuento(cupones, valorInput, precioTotal) {
 
         }
         // Guardo del descuento el storage para luego reutilzarlo, en este caso lo imprimo en el DOM
-        sessionStorage.setItem("descuento", descuento);
-        descuentoStorage = JSON.parse(sessionStorage.getItem("descuento"));
+        localStorage.setItem("descuento", descuento);
+        descuentoStorage = JSON.parse(localStorage.getItem("descuento"));
         cantidadDescuento.innerHTML = descuentoStorage;
         actualizarItems();
-
 
       } else {
         // En caso de que sea -1 significa que no existe ese cupon en el arrays
@@ -264,6 +360,8 @@ function aplicarDescuento(cupones, valorInput, precioTotal) {
     }
   }
 
+
+
 }
 
 
@@ -279,7 +377,9 @@ function pagar() {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        Swal.fire('Vuelve atrás,colócalo y tendrás un descuento', '',)
+        Swal.fire('Colócalo y tendrás un descuento',)
+        contenedorDescuento.classList.remove("display-none");
+        contenedorDescuento.classList.add("display");
       } else if (result.isDenied) {
         Swal.fire('Recibimos tu pago, nos pondremos en contacto contigo', '', 'success')
         limpiarCarrito();
@@ -289,6 +389,8 @@ function pagar() {
     Swal.fire('Recibimos tu pago, nos pondremos en contacto contigo', '', 'success')
     limpiarCarrito();
   }
+
+
 
 }
 
@@ -310,15 +412,32 @@ function avisoCarritoVacio() {
 }
 
 
+// Swal.mixin({
+//   input: 'text',
+//   confirmButtonText: 'Siguiente &rarr',
+//   showCancelButton: true,
+//   progressSteps: ['1']
+// }).queue([
+//   {
+//     title: "Ingrese el código de descuento"
+//   }
+// ]).then((result) => {
+//   if (result.value) {
+//     Swal.fire({
+//       title: '¡Completado!'
+//     })
+//   }
+// })
+
 //----------Esta funcion me permite actualizar las impresiones del DOM, similiar a la funcion anterior, es sencilla pero muy repetitiva. 
 function actualizarItems() {
-  cantidadButton.innerHTML = sessionStorage.getItem("cantidadTotal");
-  subtotalButton.innerHTML = sessionStorage.getItem("precioTotal");
-  precioTCarrito.innerHTML = sessionStorage.getItem("precioTotal");
-  precioTCarritoMobile.innerHTML = sessionStorage.getItem("precioTotal");
-  cantidadTCarrito.innerHTML = sessionStorage.getItem("cantidadTotal");
-  cantidadTCarritoMobile.innerHTML = sessionStorage.getItem("cantidadTotal");
-  cantidadDescuento.innerHTML = sessionStorage.getItem("descuento");
+  cantidadButton.innerHTML = localStorage.getItem("cantidadTotal");
+  subtotalButton.innerHTML = localStorage.getItem("precioTotal");
+  precioTCarrito.innerHTML = localStorage.getItem("precioTotal");
+  precioTCarritoMobile.innerHTML = localStorage.getItem("precioTotal");
+  cantidadTCarrito.innerHTML = localStorage.getItem("cantidadTotal");
+  cantidadTCarritoMobile.innerHTML = localStorage.getItem("cantidadTotal");
+  cantidadDescuento.innerHTML = localStorage.getItem("descuento");
 }
 
 
@@ -327,7 +446,7 @@ async function obtenerDolar() {
   const resp = await fetch(URLUSD);
   const data = await resp.json();
   let dolar = parseInt(data.venta);
-  let nuevoValor = Math.ceil(sessionStorage.getItem("precioTotal") / dolar);
+  let nuevoValor = Math.ceil(localStorage.getItem("precioTotal") / dolar);
   divisa.innerHTML = `USD<span>$<span id="subtotal-divisa">${nuevoValor}</span></span>`
 
 }
@@ -337,7 +456,7 @@ async function obtenerReal() {
   const resp = await fetch(URLREAL);
   const data = await resp.json();
   let real = parseInt(data.venta);
-  let nuevoValor = Math.ceil(sessionStorage.getItem("precioTotal") / real);
+  let nuevoValor = Math.ceil(localStorage.getItem("precioTotal") / real);
   divisa.innerHTML = `BRL<span>$<span id="subtotal-divisa">${nuevoValor}</span></span>`
 }
 
@@ -415,7 +534,7 @@ if (carroJSON.length === 0) {
 }
 
 cantidadDescuento.innerHTML = descuentoStorage;
-cantidadButton.innerHTML = JSON.parse(sessionStorage.getItem("cantidadTotal"));
-subtotalButton.innerHTML = JSON.parse(sessionStorage.getItem("precioTotal"));
+cantidadButton.innerHTML = JSON.parse(localStorage.getItem("cantidadTotal"));
+subtotalButton.innerHTML = JSON.parse(localStorage.getItem("precioTotal"));
 
 //-------------Invocación de funciones fin
