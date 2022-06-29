@@ -47,7 +47,7 @@ function imprimirCarrito(carroJSON) {
                                         <div class="quantity">
                                             <div class="pro-qty-2">
                                             <span class="fa fa-angle-left dec qtybtn" id="less${producto.id}"></span>
-                                            <input type="text" id="cantidadTotal-input" value="${producto.cantidadTotalC}">
+                                            <input type="text" id="cantidadTotal-input" value="${producto.cantidadTotalC}" readonly>
                                             <span class="fa fa-angle-right inc qtybtn" id="more${producto.id}"></span>
                                             </div>
                                         </div>
